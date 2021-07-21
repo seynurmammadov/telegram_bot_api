@@ -1,1 +1,38 @@
+server:
+  port: 5000
+#TODO change email
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: subsciption.applcation@gmail.com
+    password: itmqbzlhbsqiuwez
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tour_bot_api
+    username: postgres
+    password: seynur2462736
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  realm: tour_bot
+  resource: tour_bot_microservice
+  bearer-only: true
+  ssl-required: external
+  use-resource-role-mappings: true
+  credentials.secret: d9422819-4855-415d-b8ff-f9fba4203d05
 
+app:
+  keycloak:
+    username: seynur
+    password: 12345678
+    admin:
+      realm: master
+      resource: admin-cli
+    role: app-user
