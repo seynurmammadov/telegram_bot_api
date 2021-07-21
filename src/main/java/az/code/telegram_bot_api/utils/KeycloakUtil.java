@@ -10,12 +10,15 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.authorization.client.Configuration;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class KeycloakUtil {
@@ -31,6 +34,11 @@ public class KeycloakUtil {
     private String username;
     @Value("${app.keycloak.password}")
     private String password;
+    @Value("${keycloak.credentials.secret}")
+    private String clientSecret;
+    @Value("${keycloak.resource}")
+    private String clientId;
+
 
     public RealmResource getKeycloakRealm() {
         Keycloak keycloak = KeycloakBuilder.builder()
@@ -78,5 +86,11 @@ public class KeycloakUtil {
         UserResource userResource = usersResource.get(userId);
         userResource.resetPassword(passwordCred);
         return userResource;
+    }
+    public Configuration getConfiguration() {
+        Map<String, Object> clientCredentials = new HashMap<>();
+        clientCredentials.put("secret", clientSecret);
+        clientCredentials.put("grant_type", "password");
+        return new Configuration(authServerUrl, realm, clientId, clientCredentials, null);
     }
 }

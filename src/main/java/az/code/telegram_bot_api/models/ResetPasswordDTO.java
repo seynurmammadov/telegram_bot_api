@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @FieldMatch(first = "password", second = "password_repeat", message = "The password fields must match")
 public class ResetPasswordDTO {
+    String oldPassword;
     @Size(max = 15, min = 6, message = "Password  should be less than 15 characters")
     @NotNull
     String password;

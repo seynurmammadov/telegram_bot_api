@@ -1,5 +1,7 @@
 package az.code.telegram_bot_api.services;
 
+import az.code.telegram_bot_api.exceptions.InvalidPasswordException;
+import az.code.telegram_bot_api.exceptions.InvalidUserDataException;
 import az.code.telegram_bot_api.exceptions.VerifyEmailException;
 import az.code.telegram_bot_api.models.LoginDTO;
 import az.code.telegram_bot_api.models.RegistrationDTO;
@@ -31,16 +33,10 @@ import java.util.*;
 @Service
 @Slf4j
 public class AuthServiceImpl implements AuthService {
-    @Value("${keycloak.resource}")
-    private String clientId;
-    @Value("${keycloak.realm}")
-    private String realm;
-    @Value("${keycloak.auth-server-url}")
-    private String authServerUrl;
+
     @Value("${app.keycloak.role}")
     private String role;
-    @Value("${keycloak.credentials.secret}")
-    private String clientSecret;
+
 
     final
     MapperModel mapperModel;
@@ -75,18 +71,21 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AccessTokenResponse login(LoginDTO loginDTO) throws JsonProcessingException {
-        Map<String, Object> clientCredentials = new HashMap<>();
-        clientCredentials.put("secret", clientSecret);
-        clientCredentials.put("grant_type", "password");
-        Configuration configuration = new Configuration(authServerUrl, realm, clientId, clientCredentials, null);
+        Configuration configuration = keycloakUtil.getConfiguration();
         AuthzClient authzClient = AuthzClient.create(configuration);
-        AccessTokenResponse response = authzClient.obtainAccessToken(loginDTO.getEmail(), loginDTO.getPassword());
+        AccessTokenResponse response;
+        try {
+            response = authzClient.obtainAccessToken(loginDTO.getEmail(), loginDTO.getPassword());
+        } catch (Exception e) {
+            throw new InvalidUserDataException();
+        }
         JsonNode user = tokenUtil.getUser(response.getToken());
         if (!user.get("email_verified").asBoolean()) {
             throw new VerifyEmailException();
         }
         return response;
     }
+
 
     private void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
                             Response response) {

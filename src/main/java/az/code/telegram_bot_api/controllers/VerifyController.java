@@ -2,6 +2,7 @@ package az.code.telegram_bot_api.controllers;
 
 import az.code.telegram_bot_api.models.LoginDTO;
 import az.code.telegram_bot_api.models.ResetPasswordDTO;
+import az.code.telegram_bot_api.models.UserTokenDTO;
 import az.code.telegram_bot_api.services.interfaces.AuthService;
 import az.code.telegram_bot_api.services.interfaces.VerificationService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,13 @@ public class VerifyController {
     }
 
     @PostMapping(path = "/reset-password/{token}")
-    public ResponseEntity<Void> reset(@PathVariable String token, @RequestBody ResetPasswordDTO resetPasswordDTO) {
-        return new ResponseEntity<>(verificationService.resetPassword(token,resetPasswordDTO));
+    public ResponseEntity<Void> resetWithToken(@PathVariable String token,
+                                               @RequestBody ResetPasswordDTO resetPasswordDTO) {
+        return new ResponseEntity<>(verificationService.resetWithToken(token,resetPasswordDTO));
+    }
+    @PostMapping(path = "/reset-password")
+    public ResponseEntity<Void> resetWithOldPassword(@RequestAttribute UserTokenDTO user,
+                                                     @RequestBody ResetPasswordDTO resetPasswordDTO) {
+        return new ResponseEntity<>(verificationService.resetWithOldPassword(user,resetPasswordDTO));
     }
 }

@@ -1,11 +1,9 @@
 package az.code.telegram_bot_api.services;
 
+import az.code.telegram_bot_api.exceptions.InvalidPasswordException;
 import az.code.telegram_bot_api.exceptions.TokenInvalidException;
 import az.code.telegram_bot_api.exceptions.UserNotFoundException;
-import az.code.telegram_bot_api.models.LoginDTO;
-import az.code.telegram_bot_api.models.ResetPasswordDTO;
-import az.code.telegram_bot_api.models.User;
-import az.code.telegram_bot_api.models.VerificationToken;
+import az.code.telegram_bot_api.models.*;
 import az.code.telegram_bot_api.models.enums.TokenType;
 import az.code.telegram_bot_api.repositories.UserRepository;
 import az.code.telegram_bot_api.repositories.VerificationRepo;
@@ -14,12 +12,14 @@ import az.code.telegram_bot_api.utils.KeycloakUtil;
 import az.code.telegram_bot_api.utils.MessageUtil;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.authorization.client.AuthzClient;
+import org.keycloak.authorization.client.Configuration;
+import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -84,10 +84,24 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public HttpStatus resetPassword(String token, ResetPasswordDTO resetPasswordDTO) {
+    public HttpStatus resetWithToken(String token, ResetPasswordDTO resetPasswordDTO) {
         VerificationToken dbToken = findByToken(token, TokenType.PASSWORD_RESET);
         keycloakUtil.setPassword(dbToken.getUser().getUsername(), resetPasswordDTO);
         verificationRepo.delete(dbToken);
+        return HttpStatus.OK;
+    }
+
+    @Override
+    public HttpStatus resetWithOldPassword(UserTokenDTO user, ResetPasswordDTO resetPasswordDTO) {
+        Configuration configuration = keycloakUtil.getConfiguration();
+        AuthzClient authzClient = AuthzClient.create(configuration);
+        try{
+            authzClient.obtainAccessToken(user.getEmail(), resetPasswordDTO.getOldPassword());
+        }
+        catch (Exception e){
+            throw new InvalidPasswordException();
+        }
+        keycloakUtil.setPassword(user.getUsername(), resetPasswordDTO);
         return HttpStatus.OK;
     }
 
