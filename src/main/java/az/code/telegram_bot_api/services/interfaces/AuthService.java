@@ -8,6 +8,5 @@ import org.springframework.http.HttpStatus;
 
 public interface AuthService {
     RegistrationDTO registration(RegistrationDTO registrationDTO);
-    HttpStatus verify(String confirmationToken);
     AccessTokenResponse login( LoginDTO loginDTO) throws JsonProcessingException;
 }

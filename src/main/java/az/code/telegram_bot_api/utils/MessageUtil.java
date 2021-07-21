@@ -1,9 +1,6 @@
 package az.code.telegram_bot_api.utils;
 
-import az.code.telegram_bot_api.models.User;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class MessageUtil {
@@ -18,8 +15,13 @@ public class MessageUtil {
     }
 
     //TODO add html page
-    public void regVerifyNotification(User user, String token) {
-        mailSenderUtil.sendEmail(user.getEmail(), "registrationVerifySubject",
+    public void regVerifyNotification(String email, String token) {
+        mailSenderUtil.sendEmail(email, "registrationVerifySubject",
+                token);
+    }
+
+    public void forgot(String email, String token) {
+        mailSenderUtil.sendEmail(email, "registrationVerifySubject",
                 token);
     }
 }

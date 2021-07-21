@@ -1,6 +1,8 @@
 package az.code.telegram_bot_api.models;
 
+import az.code.telegram_bot_api.models.enums.TokenType;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,16 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "verification_tokens")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class VerificationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String token;
-
-    private LocalDateTime createdDate = LocalDateTime.now() ;
-
-    @OneToOne(targetEntity = User.class)
+    Long id;
+    String token;
+    TokenType tokenType;
+    LocalDateTime createdDate = LocalDateTime.now();
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "user_id")
-    private User user;
+    User user;
 }

@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Builder
@@ -27,7 +28,7 @@ public class User {
     String agent_name;
     String agent_surname;
     LocalDateTime created_at;
-    @OneToOne(mappedBy = "user")
-    private VerificationToken verificationToken;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
+    List<VerificationToken> verificationToken;
 
 }
