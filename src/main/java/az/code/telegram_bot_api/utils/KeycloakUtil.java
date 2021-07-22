@@ -1,8 +1,8 @@
 package az.code.telegram_bot_api.utils;
 
 import az.code.telegram_bot_api.exceptions.UserNotFoundException;
-import az.code.telegram_bot_api.models.RegistrationDTO;
-import az.code.telegram_bot_api.models.ResetPasswordDTO;
+import az.code.telegram_bot_api.models.DTOs.RegistrationDTO;
+import az.code.telegram_bot_api.models.DTOs.ResetPasswordDTO;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;

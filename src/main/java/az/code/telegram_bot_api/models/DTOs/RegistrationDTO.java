@@ -1,4 +1,4 @@
-package az.code.telegram_bot_api.models;
+package az.code.telegram_bot_api.models.DTOs;
 
 import az.code.telegram_bot_api.annotations.FieldMatch;
 import lombok.*;

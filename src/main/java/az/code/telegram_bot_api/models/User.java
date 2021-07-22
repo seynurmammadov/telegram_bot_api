@@ -5,7 +5,10 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -14,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
 public class User {
@@ -28,7 +30,13 @@ public class User {
     String agent_name;
     String agent_surname;
     LocalDateTime created_at;
+    boolean isActive;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
-    List<VerificationToken> verificationToken;
+    List<VerificationToken> verificationToken = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
+    Set<UserRequest> userRequests = new HashSet<>();
+    public void addRequest(UserRequest request){
+        userRequests.add(request);
+    }
 }

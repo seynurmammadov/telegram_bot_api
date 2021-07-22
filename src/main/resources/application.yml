@@ -36,3 +36,5 @@ app:
       realm: master
       resource: admin-cli
     role: app-user
+
+CLOUDAMQP_URL: amqps://fuytoamo:Gp7yAwntD17GPEWxLDUIPHvzkDHekX_q@squid.rmq.cloudamqp.com/fuytoamo

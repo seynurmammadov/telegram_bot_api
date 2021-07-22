@@ -4,6 +4,9 @@ import az.code.telegram_bot_api.exceptions.InvalidPasswordException;
 import az.code.telegram_bot_api.exceptions.TokenInvalidException;
 import az.code.telegram_bot_api.exceptions.UserNotFoundException;
 import az.code.telegram_bot_api.models.*;
+import az.code.telegram_bot_api.models.DTOs.LoginDTO;
+import az.code.telegram_bot_api.models.DTOs.ResetPasswordDTO;
+import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.models.enums.TokenType;
 import az.code.telegram_bot_api.repositories.UserRepository;
 import az.code.telegram_bot_api.repositories.VerificationRepo;
@@ -14,7 +17,6 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.authorization.client.Configuration;
-import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -114,14 +116,18 @@ public class VerificationServiceImpl implements VerificationService {
         if (users.size() == 0)
             throw new UserNotFoundException();
         verifyUser(usersResource, users);
+        user.setActive(true);
+        userRepo.save(user);
         verificationRepo.delete(dbToken);
         return HttpStatus.OK;
     }
 
     private void clearTokens(User user, TokenType emailVerify) {
-        user.setVerificationToken(user.getVerificationToken()
-                .stream().filter(t -> t.getTokenType() != emailVerify)
-                .collect(Collectors.toList()));
+        if(user.getVerificationToken().size()!=0){
+            user.setVerificationToken(user.getVerificationToken()
+                    .stream().filter(t -> t.getTokenType() != emailVerify)
+                    .collect(Collectors.toList()));
+        }
         userRepo.save(user);
     }
 

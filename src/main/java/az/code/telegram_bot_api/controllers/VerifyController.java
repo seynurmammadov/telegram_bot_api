@@ -1,8 +1,8 @@
 package az.code.telegram_bot_api.controllers;
 
-import az.code.telegram_bot_api.models.LoginDTO;
-import az.code.telegram_bot_api.models.ResetPasswordDTO;
-import az.code.telegram_bot_api.models.UserTokenDTO;
+import az.code.telegram_bot_api.models.DTOs.LoginDTO;
+import az.code.telegram_bot_api.models.DTOs.ResetPasswordDTO;
+import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.services.interfaces.AuthService;
 import az.code.telegram_bot_api.services.interfaces.VerificationService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package az.code.telegram_bot_api.configs.security;
 
-import az.code.telegram_bot_api.models.UserTokenDTO;
+import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.utils.TokenUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Component;

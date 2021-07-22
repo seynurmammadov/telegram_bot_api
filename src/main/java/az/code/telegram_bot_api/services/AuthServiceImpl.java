@@ -1,10 +1,9 @@
 package az.code.telegram_bot_api.services;
 
-import az.code.telegram_bot_api.exceptions.InvalidPasswordException;
 import az.code.telegram_bot_api.exceptions.InvalidUserDataException;
 import az.code.telegram_bot_api.exceptions.VerifyEmailException;
-import az.code.telegram_bot_api.models.LoginDTO;
-import az.code.telegram_bot_api.models.RegistrationDTO;
+import az.code.telegram_bot_api.models.DTOs.LoginDTO;
+import az.code.telegram_bot_api.models.DTOs.RegistrationDTO;
 import az.code.telegram_bot_api.models.User;
 import az.code.telegram_bot_api.models.mapper.MapperModel;
 import az.code.telegram_bot_api.repositories.UserRepository;
