@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface RequestService {
     List<UserRequest> getAll(UserTokenDTO userTokenDTO, Pageable pageable);
+    List<UserRequest> getAll(UserTokenDTO userTokenDTO, Pageable pageable, String status);
     HttpStatus archiveRequest(UserTokenDTO userTokenDTO, Long userRequestId);
 }

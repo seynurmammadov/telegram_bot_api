@@ -34,22 +34,32 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<UserRequest> getAll(UserTokenDTO userTokenDTO, Pageable pageable) {
-        return paginationResult(userReqRepo.getAllByUsername(
-                userTokenDTO.getUsername(),
-                RequestStatus.ARCHIVED,
-                RequestStatus.EXPIRED,
-                pageable
-        ));
+        return paginationResult(userReqRepo.getAllByUsername(userTokenDTO.getUsername(), pageable));
+    }
+
+    @Override
+    public List<UserRequest> getAll(UserTokenDTO userTokenDTO, Pageable pageable, String status) {
+        RequestStatus requestStatus = RequestStatus.valueOfStatus(status);
+        if (requestStatus != null) {
+            return paginationResult(
+                    userReqRepo.getAllByStatus(
+                            userTokenDTO.getUsername(),
+                            pageable,
+                            requestStatus
+                    )
+            );
+        }
+        return null;
     }
 
     @Override
     public HttpStatus archiveRequest(UserTokenDTO userTokenDTO, Long userRequestId) {
-        Optional<UserRequest> userRequest =userReqRepo.getByUsernameAndId(
+        Optional<UserRequest> userRequest = userReqRepo.getByUsernameAndId(
                 userTokenDTO.getUsername(),
                 userRequestId,
                 RequestStatus.NEW_REQUEST);
-        if(userRequest.isPresent()){
-            userRequest.get().setRequestStatus(RequestStatus.ARCHIVED);
+        if (userRequest.isPresent()) {
+            userRequest.get().setArchived(true);
             userReqRepo.save(userRequest.get());
             return HttpStatus.OK;
         }

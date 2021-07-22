@@ -30,4 +30,5 @@ public class UserRequest {
     @JoinColumn(nullable = false, name = "request_id")
     Request request;
     RequestStatus requestStatus;
+    boolean isArchived;
 }
