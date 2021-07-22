@@ -8,8 +8,8 @@ import az.code.telegram_bot_api.models.DTOs.LoginDTO;
 import az.code.telegram_bot_api.models.DTOs.ResetPasswordDTO;
 import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.models.enums.TokenType;
-import az.code.telegram_bot_api.repositories.UserRepository;
 import az.code.telegram_bot_api.repositories.VerificationRepo;
+import az.code.telegram_bot_api.services.interfaces.UserService;
 import az.code.telegram_bot_api.services.interfaces.VerificationService;
 import az.code.telegram_bot_api.utils.KeycloakUtil;
 import az.code.telegram_bot_api.utils.MessageUtil;
@@ -34,16 +34,18 @@ public class VerificationServiceImpl implements VerificationService {
     VerificationRepo verificationRepo;
     final
     MessageUtil messageUtil;
-    final
-    UserRepository userRepo;
+
     final
     KeycloakUtil keycloakUtil;
 
-    public VerificationServiceImpl(VerificationRepo verificationRepo, MessageUtil messageUtil, UserRepository userRepo, KeycloakUtil keycloakUtil) {
+    final
+    UserService userService;
+
+    public VerificationServiceImpl(VerificationRepo verificationRepo, MessageUtil messageUtil, KeycloakUtil keycloakUtil, UserService userService) {
         this.verificationRepo = verificationRepo;
         this.messageUtil = messageUtil;
-        this.userRepo = userRepo;
         this.keycloakUtil = keycloakUtil;
+        this.userService = userService;
     }
 
     @Override
@@ -62,7 +64,7 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     public HttpStatus passwordForgot(LoginDTO loginDTO) {
-        User user = findUserByEmail(loginDTO.getEmail());
+        User user = userService.findUserByEmail(loginDTO.getEmail());
         clearTokens(user, TokenType.PASSWORD_RESET);
         String token = verificationRepo
                 .save(VerificationToken.builder()
@@ -97,10 +99,9 @@ public class VerificationServiceImpl implements VerificationService {
     public HttpStatus resetWithOldPassword(UserTokenDTO user, ResetPasswordDTO resetPasswordDTO) {
         Configuration configuration = keycloakUtil.getConfiguration();
         AuthzClient authzClient = AuthzClient.create(configuration);
-        try{
+        try {
             authzClient.obtainAccessToken(user.getEmail(), resetPasswordDTO.getOldPassword());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new InvalidPasswordException();
         }
         keycloakUtil.setPassword(user.getUsername(), resetPasswordDTO);
@@ -110,34 +111,26 @@ public class VerificationServiceImpl implements VerificationService {
     @Override
     public HttpStatus verify(String token) {
         VerificationToken dbToken = findByToken(token, TokenType.EMAIL_VERIFY);
-        User user = findUserByEmail(dbToken.getUser().getEmail());
+        User user = userService.findUserByEmail(dbToken.getUser().getEmail());
         UsersResource usersResource = keycloakUtil.getKeycloakRealm().users();
         List<UserRepresentation> users = usersResource.search(user.getUsername());
         if (users.size() == 0)
             throw new UserNotFoundException();
         verifyUser(usersResource, users);
-        user.setActive(true);
-        userRepo.save(user);
+        userService.activeAndSave(user);
         verificationRepo.delete(dbToken);
         return HttpStatus.OK;
     }
 
     private void clearTokens(User user, TokenType emailVerify) {
-        if(user.getVerificationToken().size()!=0){
+        if (user.getVerificationToken().size() != 0) {
             user.setVerificationToken(user.getVerificationToken()
                     .stream().filter(t -> t.getTokenType() != emailVerify)
                     .collect(Collectors.toList()));
         }
-        userRepo.save(user);
+        userService.save(user);
     }
 
-    private User findUserByEmail(String email) {
-        Optional<User> user = userRepo.findByEmail(email);
-        if (user.isPresent()) {
-            return user.get();
-        }
-        throw new UserNotFoundException();
-    }
 
     private void verifyUser(UsersResource usersResource, List<UserRepresentation> users) {
         UserRepresentation search = users.get(0);

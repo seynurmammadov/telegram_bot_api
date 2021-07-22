@@ -1,6 +1,7 @@
 package az.code.telegram_bot_api.models;
 
 import az.code.telegram_bot_api.models.enums.RequestStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,9 +21,11 @@ public class UserRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "user_id")
     User user;
+
     @ManyToOne(targetEntity = Request.class)
     @JoinColumn(nullable = false, name = "request_id")
     Request request;

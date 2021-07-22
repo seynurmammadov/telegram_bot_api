@@ -1,5 +1,6 @@
 package az.code.telegram_bot_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -31,6 +32,7 @@ public class User {
     String agent_surname;
     LocalDateTime created_at;
     boolean isActive;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
     List<VerificationToken> verificationToken = new ArrayList<>();
 

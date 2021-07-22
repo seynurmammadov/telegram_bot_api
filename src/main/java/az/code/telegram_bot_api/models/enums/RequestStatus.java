@@ -4,5 +4,6 @@ public enum RequestStatus {
     NEW_REQUEST,
     OFFER_MADE,
     ACCEPTED,
-    EXPIRED
+    EXPIRED,
+    ARCHIVED
 }

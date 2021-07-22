@@ -10,6 +10,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Component
@@ -43,6 +44,7 @@ public class MapperModelImpl implements MapperModel {
                 .addressToType(AddressType.valueOfAddress(request.getAddressToType()))
                 .travellerCount(request.getTravellerCount())
                 .budget(request.getBudget())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 }

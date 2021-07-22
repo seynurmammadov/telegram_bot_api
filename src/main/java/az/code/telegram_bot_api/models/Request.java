@@ -2,11 +2,13 @@ package az.code.telegram_bot_api.models;
 
 import az.code.telegram_bot_api.models.enums.AddressType;
 import az.code.telegram_bot_api.models.enums.TourType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +40,8 @@ public class Request {
     AddressType addressToType;
     String travellerCount;
     int budget;
+    LocalDateTime createdAt;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.EAGER)
     List<UserRequest> userRequests = new ArrayList<>();
 }
