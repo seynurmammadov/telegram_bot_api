@@ -34,6 +34,7 @@ public class RequestSchedule {
                     userRequest.setArchived(true);
                     userRequest.setRequestStatus(RequestStatus.EXPIRED);
                 }
+                r.setExpired(true);
                 requestRepository.save(r);
             }
         }

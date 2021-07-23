@@ -14,4 +14,5 @@ public interface RequestService {
     List<UserRequest> getAllArchived(UserTokenDTO userTokenDTO, Pageable pageable);
     HttpStatus archiveRequest(UserTokenDTO userTokenDTO, Long userRequestId);
     HttpStatus unarchiveRequest(UserTokenDTO userTokenDTO, Long userRequestId);
+    HttpStatus deleteArchived(UserTokenDTO userTokenDTO, Long userRequestId);
 }

@@ -86,6 +86,19 @@ public class RequestServiceImpl implements RequestService {
         return HttpStatus.OK;
     }
 
+    @Override
+    public HttpStatus deleteArchived(UserTokenDTO userTokenDTO, Long userRequestId) {
+        UserRequest userRequest = getRequest(
+                userReqRepo.getArchivedById(
+                        userTokenDTO.getUsername(),
+                        userRequestId
+                )
+        );
+        userRequest.setArchived(false);
+        save(userRequest);
+        return HttpStatus.OK;
+    }
+
     private UserRequest getRequest(Optional<UserRequest> userRequest) {
         if (userRequest.isPresent()) {
             return userRequest.get();
