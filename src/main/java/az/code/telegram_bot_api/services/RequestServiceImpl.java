@@ -34,7 +34,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<UserRequest> getAll(UserTokenDTO userTokenDTO, Pageable pageable) {
-        return paginationResult(userReqRepo.getAllByUsername(userTokenDTO.getUsername(), pageable));
+        return paginationResult(userReqRepo.getAll(userTokenDTO.getUsername(), pageable));
     }
 
     @Override
@@ -50,6 +50,11 @@ public class RequestServiceImpl implements RequestService {
             );
         }
         return null;
+    }
+
+    @Override
+    public List<UserRequest> getAllArchived(UserTokenDTO userTokenDTO, Pageable pageable) {
+        return paginationResult(userReqRepo.getAllArchived(userTokenDTO.getUsername(), pageable));
     }
 
     @Override

@@ -12,24 +12,27 @@ import java.util.Optional;
 
 public interface UserRequestRepository extends JpaRepository<UserRequest, Long> {
     @Query("select ur from UserRequest ur " +
-            "join Request r on ur.request.orderId = r.orderId " +
-            "where ur.user.username=:username and ur.isArchived=false")
-    Page<UserRequest> getAllByUsername(String username, Pageable pageable);
+            "where ur.user.username=:username and ur.isArchived=false and ur.isDeleted=false")
+    Page<UserRequest> getAll(String username, Pageable pageable);
 
     @Query("select ur from UserRequest ur " +
-            "join Request r on ur.request.orderId = r.orderId " +
-            "where ur.user.username=:username and ur.isArchived=false and ur.requestStatus=:status")
+            "where ur.user.username=:username and ur.isArchived=true and ur.isDeleted=false")
+    Page<UserRequest> getAllArchived(String username, Pageable pageable);
+
+    @Query("select ur from UserRequest ur " +
+            "where ur.user.username=:username and ur.isArchived=false and ur.requestStatus=:status " +
+            "and ur.isDeleted=false")
     Page<UserRequest> getAllByStatus(String username, Pageable pageable, RequestStatus status);
 
     @Query("select ur from UserRequest ur " +
-            "join Request r on ur.request.orderId = r.orderId " +
             "where ur.user.username=:username and ur.requestStatus<>:except and " +
-            "ur.id=:id")
+            "ur.id=:id and ur.isDeleted=false")
     Optional<UserRequest> getById(String username, Long id, RequestStatus except);
 
     @Query("select ur from UserRequest ur " +
             "where ur.user.username=:username and ur.requestStatus<>:except and " +
-            "ur.id=:id and ur.requestStatus<>:except2 and ur.isArchived=true")
+            "ur.id=:id and ur.requestStatus<>:except2 and ur.isArchived=true" +
+            " and ur.isDeleted=false")
     Optional<UserRequest> getArchivedById(String username, Long id, RequestStatus except,RequestStatus except2);
 
 

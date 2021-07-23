@@ -31,4 +31,5 @@ public class UserRequest {
     Request request;
     RequestStatus requestStatus;
     boolean isArchived;
+    boolean isDeleted;
 }
