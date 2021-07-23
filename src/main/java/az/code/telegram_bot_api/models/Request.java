@@ -41,6 +41,8 @@ public class Request {
     String travellerCount;
     int budget;
     LocalDateTime createdAt;
+    LocalDateTime experationDate;
+    boolean isExpired;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.EAGER)
     List<UserRequest> userRequests = new ArrayList<>();

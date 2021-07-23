@@ -32,9 +32,12 @@ public class MapperModelImpl implements MapperModel {
         return modelMapper.map(data, entityClass);
     }
 
-    public Request requestDTOtoRequest(RequestDTO request, Language language) {
+    @Override
+    public Request requestDTOtoRequest(RequestDTO request, Language language, LocalDateTime experationDate) {
+
         return Request.builder()
                 .language(language)
+                .isExpired(false)
                 .travelStartDate(LocalDate.parse(request.getTravelStartDate()))
                 .travelEndDate(LocalDate.parse(request.getTravelEndDate()))
                 .UUID(request.getUUID())
@@ -45,6 +48,7 @@ public class MapperModelImpl implements MapperModel {
                 .travellerCount(request.getTravellerCount())
                 .budget(request.getBudget())
                 .createdAt(LocalDateTime.now())
+                .experationDate(experationDate)
                 .build();
     }
 }
