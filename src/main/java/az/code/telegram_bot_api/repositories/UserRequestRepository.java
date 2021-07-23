@@ -23,7 +23,14 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Long> 
 
     @Query("select ur from UserRequest ur " +
             "join Request r on ur.request.orderId = r.orderId " +
-            "where ur.user.username=:username and ur.requestStatus<>:status and " +
+            "where ur.user.username=:username and ur.requestStatus<>:except and " +
             "ur.id=:id")
-    Optional<UserRequest> getByUsernameAndId(String username, Long id, RequestStatus status);
+    Optional<UserRequest> getById(String username, Long id, RequestStatus except);
+
+    @Query("select ur from UserRequest ur " +
+            "where ur.user.username=:username and ur.requestStatus<>:except and " +
+            "ur.id=:id and ur.requestStatus<>:except2 and ur.isArchived=true")
+    Optional<UserRequest> getArchivedById(String username, Long id, RequestStatus except,RequestStatus except2);
+
+
 }

@@ -54,15 +54,41 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public HttpStatus archiveRequest(UserTokenDTO userTokenDTO, Long userRequestId) {
-        Optional<UserRequest> userRequest = userReqRepo.getByUsernameAndId(
-                userTokenDTO.getUsername(),
-                userRequestId,
-                RequestStatus.NEW_REQUEST);
+        UserRequest userRequest = getRequest(
+                userReqRepo.getById(
+                        userTokenDTO.getUsername(),
+                        userRequestId,
+                        RequestStatus.NEW_REQUEST
+                )
+        );
+        userRequest.setArchived(true);
+        save(userRequest);
+        return HttpStatus.OK;
+    }
+
+    @Override
+    public HttpStatus unarchiveRequest(UserTokenDTO userTokenDTO, Long userRequestId) {
+        UserRequest userRequest = getRequest(
+                userReqRepo.getArchivedById(
+                        userTokenDTO.getUsername(),
+                        userRequestId,
+                        RequestStatus.ACCEPTED,
+                        RequestStatus.EXPIRED
+                )
+        );
+        userRequest.setArchived(false);
+        save(userRequest);
+        return HttpStatus.OK;
+    }
+
+    private UserRequest getRequest(Optional<UserRequest> userRequest) {
         if (userRequest.isPresent()) {
-            userRequest.get().setArchived(true);
-            userReqRepo.save(userRequest.get());
-            return HttpStatus.OK;
+            return userRequest.get();
         }
         throw new UserRequestNotFound();
+    }
+
+    public void save(UserRequest userRequest) {
+        userReqRepo.save(userRequest);
     }
 }

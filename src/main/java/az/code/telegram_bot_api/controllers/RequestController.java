@@ -48,9 +48,16 @@ public class RequestController {
 
     @GetMapping("/archive/{userRequestId}")
     public ResponseEntity<Void> archiveRequest(@RequestAttribute UserTokenDTO user, @PathVariable Long userRequestId) {
-        log.info("User with username '{}' calls get archive requests method request id {}",
+        log.info("User with username '{}' calls archive requests method request id {}",
                 user.getUsername(),
                 userRequestId);
         return new ResponseEntity<>(requestService.archiveRequest(user, userRequestId));
+    }
+    @GetMapping("/unarchive/{userRequestId}")
+    public ResponseEntity<Void> unarchiveRequest(@RequestAttribute UserTokenDTO user, @PathVariable Long userRequestId) {
+        log.info("User with username '{}' calls unarchive requests method request id {}",
+                user.getUsername(),
+                userRequestId);
+        return new ResponseEntity<>(requestService.unarchiveRequest(user, userRequestId));
     }
 }
