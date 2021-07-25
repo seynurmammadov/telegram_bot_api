@@ -98,12 +98,21 @@ public class RequestServiceImpl implements RequestService {
         save(userRequest);
         return HttpStatus.OK;
     }
-
     private UserRequest getRequest(Optional<UserRequest> userRequest) {
         if (userRequest.isPresent()) {
             return userRequest.get();
         }
         throw new UserRequestNotFound();
+    }
+    @Override
+    public UserRequest getForOffer(UserTokenDTO userTokenDTO, Long userRequestId){
+        return getRequest(
+                userReqRepo.getForOffer(
+                        userTokenDTO.getUsername(),
+                        userRequestId,
+                        RequestStatus.OFFER_MADE
+                )
+        );
     }
 
     public void save(UserRequest userRequest) {

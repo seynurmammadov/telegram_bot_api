@@ -29,7 +29,7 @@ public class TimeUtil {
         LocalTime now = LocalTime.parse(LocalTime.now().format(dtf));
         LocalTime expireTime =now.plusHours(limit);
         LocalDateTime time = LocalDateTime.now();
-        if (!isWithinRange(now) || !isWithinRange(expireTime)) {
+        if (isWithinRange(now) || isWithinRange(expireTime)) {
             if (now.isBefore(start)) {
                 time = getTime(LocalDate.now(), start.plusHours(limit));
             }
@@ -54,6 +54,6 @@ public class TimeUtil {
     }
 
     boolean isWithinRange(LocalTime date) {
-        return !(date.isBefore(start) || date.isAfter(end));
+        return date.isBefore(start) || date.isAfter(end);
     }
 }

@@ -4,7 +4,8 @@ public enum RequestStatus {
     NEW_REQUEST("newRequest"),
     OFFER_MADE("offerMade"),
     ACCEPTED("accepted"),
-    EXPIRED("expired");
+    EXPIRED("expired"),
+    USER_CANCEL("userCancel");
 
     private final String val;
 

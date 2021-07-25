@@ -3,8 +3,6 @@ package az.code.telegram_bot_api.models.DTOs;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-
 @Builder
 @Getter
 @Setter

@@ -27,9 +27,13 @@ public class UserRequest {
     User user;
 
     @ManyToOne(targetEntity = Request.class)
+    @EqualsAndHashCode.Exclude
     @JoinColumn(nullable = false, name = "request_id")
     Request request;
     RequestStatus requestStatus;
     boolean isArchived;
     boolean isDeleted;
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "userRequest",cascade = CascadeType.ALL)
+    Offer offer;
 }

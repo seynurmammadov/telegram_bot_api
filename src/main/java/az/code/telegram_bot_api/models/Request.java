@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Builder
@@ -44,6 +43,7 @@ public class Request {
     LocalDateTime experationDate;
     boolean isActive;
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.EAGER)
     List<UserRequest> userRequests = new ArrayList<>();
 }

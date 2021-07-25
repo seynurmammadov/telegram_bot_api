@@ -22,6 +22,7 @@ public class Language implements Serializable {
     String langName;
     String keyword;
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "language")
     List<Request> requests;
 }

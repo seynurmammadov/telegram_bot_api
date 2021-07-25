@@ -3,7 +3,6 @@ package az.code.telegram_bot_api.models.DTOs;
 import az.code.telegram_bot_api.annotations.FieldMatch;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -24,6 +23,7 @@ public class RegistrationDTO {
     @NotNull
     String company_name;
     @Max(9999999999L)
+    @NotNull
     Long tin;
     @Size(max = 30, message = "Agent name should be less than 30 characters")
     @NotNull
