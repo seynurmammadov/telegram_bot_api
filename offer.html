@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="wide wow-animation desktop landscape rd-navbar-static-linked" lang="en">
+
+<head>
+
+<style>
+
+
+.title-decoration-lines-bottom {
+	position: relative;
+	line-height: 1.2;
+}
+
+.title-decoration-lines-bottom span {
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	margin-top: 20px;
+}
+
+.title-decoration-lines-bottom span::after {
+	display: inline-block;
+	content: '';
+	bottom: 0;
+	width: 70px;
+	border: 2px solid #01b3a7;
+}
+
+
+
+.title-decoration-lines-left + p {
+	margin-top: 8px;
+}
+
+.title-decoration-lines-bottom + p {
+	margin-top: 30px;
+}
+
+.product-big-price-wrap {
+	position: absolute;
+	overflow: hidden;
+	text-align: center;
+	padding: 8px 10px 6px;
+	top: 0;
+	right: 0;
+	font-size: 18px;
+	line-height: 1;
+	font-weight: 500;
+	letter-spacing: .025em;
+	text-transform: uppercase;
+	font-family: "Montserrat", sans-serif, Arial, sans-serif;
+	color: rgba(255, 255, 255, 0.4);
+	background: transparent;
+	z-index: 1;
+	height: 38px;
+    width: 61px;
+}
+
+.product-big-price-wrap > * {
+	display: block;
+}
+
+.product-big-price-wrap::before {
+	position: absolute;
+	content: '';
+	bottom: 0;
+	left: 14px;
+	width: 400%;
+	height: 100%;
+	background: #01b3a7;
+	transform: skew(45deg);
+	transform-origin: 50% 100%;
+	will-change: transform;
+	pointer-events: none;
+	z-index: -1;
+}
+.product-big-price {
+	font-size: 21px;
+	letter-spacing: .025em;
+	color: #ffffff;
+	line-height: 31px;
+}
+.text-gray-500 {
+	color: #9b9b9b;
+}
+
+.divider {
+	font-size: 0;
+	line-height: 0;
+	height: 1px;
+	width: 100%;
+	background: #e1e1e1;
+}
+
+.divider-30 {
+	margin: 30px 0;
+}
+	</style>
+</head>
+
+<body class="">
+  <div class="">
+    <div class="single-tour-title">
+      <h4 class="title-decoration-lines-bottom">{company_name}<span></span></h4>
+    </div>
+    <div class="single-tour-price">
+      <div class="product-big-price-wrap"><span class="product-big-price">{price} 	&#8380</span></div>
+    </div>
+    <p class="text-gray-500">{description}</p>
+    <p class="text-gray-500">{notes}</p>
+    <p class="text-gray-500">{date}</p>
+    <div class="divider divider-30"></div>
+  </div>
+</body>
