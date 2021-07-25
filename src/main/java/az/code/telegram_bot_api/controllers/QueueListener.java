@@ -25,4 +25,9 @@ public class QueueListener {
         log.info("New request in 'sent' queue. UUID: {}", userData.getUUID());
         listenerService.saveRequest(userData);
     }
+    @RabbitListener(queues = RabbitMQConfig.cancelled)
+    public void cancelRequest(String UUID) {
+        log.info("New request in 'cancelled' queue. UUID: {}", UUID);
+        listenerService.cancelRequest(UUID);
+    }
 }

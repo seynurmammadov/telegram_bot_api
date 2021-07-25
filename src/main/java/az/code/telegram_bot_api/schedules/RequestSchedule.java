@@ -5,8 +5,6 @@ import az.code.telegram_bot_api.models.UserRequest;
 import az.code.telegram_bot_api.models.enums.RequestStatus;
 import az.code.telegram_bot_api.repositories.RequestRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +32,7 @@ public class RequestSchedule {
                     userRequest.setArchived(true);
                     userRequest.setRequestStatus(RequestStatus.EXPIRED);
                 }
-                r.setExpired(true);
+                r.setActive(false);
                 requestRepository.save(r);
             }
         }

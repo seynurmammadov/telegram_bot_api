@@ -2,25 +2,16 @@ package az.code.telegram_bot_api.services;
 
 import az.code.telegram_bot_api.models.Request;
 import az.code.telegram_bot_api.models.DTOs.RequestDTO;
-import az.code.telegram_bot_api.models.User;
 import az.code.telegram_bot_api.models.DTOs.UserData;
-import az.code.telegram_bot_api.models.UserRequest;
-import az.code.telegram_bot_api.models.enums.RequestStatus;
 import az.code.telegram_bot_api.models.mapper.MapperModel;
 import az.code.telegram_bot_api.repositories.LanguageRepository;
 import az.code.telegram_bot_api.repositories.RequestRepository;
-import az.code.telegram_bot_api.repositories.UserRepository;
 import az.code.telegram_bot_api.services.interfaces.ListenerService;
+import az.code.telegram_bot_api.services.interfaces.UserService;
 import az.code.telegram_bot_api.utils.TimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ListenerServiceImpl implements ListenerService {
@@ -31,17 +22,17 @@ public class ListenerServiceImpl implements ListenerService {
     final
     LanguageRepository languageRepository;
     final
-    UserRepository userRepo;
-    final
     TimeUtil timeUtil;
+    final
+    UserService userService;
 
     public ListenerServiceImpl(RequestRepository requestRepository, MapperModel mapperModel,
-                               LanguageRepository languageRepository, UserRepository userRepo, TimeUtil timeUtil) {
+                               LanguageRepository languageRepository, TimeUtil timeUtil, UserService userService) {
         this.requestRepository = requestRepository;
         this.mapperModel = mapperModel;
         this.languageRepository = languageRepository;
-        this.userRepo = userRepo;
         this.timeUtil = timeUtil;
+        this.userService = userService;
     }
 
     public void saveRequest(UserData userData) {
@@ -52,20 +43,16 @@ public class ListenerServiceImpl implements ListenerService {
                 languageRepository.getByKeyword(requestDTO.getLanguage()),
                 timeUtil.getExpireTime()
         );
-        addRequestToUsers(request);
+        userService.addRequestToUsers(requestRepository.save(request));
     }
 
-    private void addRequestToUsers(Request request) {
-        List<User> users = userRepo.getAllActive();
-        final Request finalRequest = requestRepository.save(request);
-        users.forEach(u -> u.addRequest(
-                UserRequest.builder()
-                        .user(u)
-                        .request(finalRequest)
-                        .requestStatus(RequestStatus.NEW_REQUEST)
-                        .build()
-                )
-        );
-        userRepo.saveAll(users);
+    @Override
+    public void cancelRequest(String UUID) {
+        Optional<Request> request = requestRepository.findByUUID(UUID);
+        if(request.isPresent()){
+            request.get().setActive(false);
+            requestRepository.save(request.get());
+        }
     }
+
 }

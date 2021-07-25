@@ -37,7 +37,7 @@ public class MapperModelImpl implements MapperModel {
 
         return Request.builder()
                 .language(language)
-                .isExpired(false)
+                .isActive(true)
                 .travelStartDate(LocalDate.parse(request.getTravelStartDate()))
                 .travelEndDate(LocalDate.parse(request.getTravelEndDate()))
                 .UUID(request.getUUID())

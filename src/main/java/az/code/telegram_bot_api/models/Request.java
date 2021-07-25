@@ -42,7 +42,7 @@ public class Request {
     int budget;
     LocalDateTime createdAt;
     LocalDateTime experationDate;
-    boolean isExpired;
+    boolean isActive;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.EAGER)
     List<UserRequest> userRequests = new ArrayList<>();

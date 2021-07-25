@@ -4,4 +4,5 @@ import az.code.telegram_bot_api.models.DTOs.UserData;
 
 public interface ListenerService {
     void saveRequest(UserData userData);
+    void cancelRequest(String UUID);
 }
