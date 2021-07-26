@@ -105,12 +105,22 @@ public class RequestServiceImpl implements RequestService {
         throw new UserRequestNotFound();
     }
     @Override
-    public UserRequest getForOffer(UserTokenDTO userTokenDTO, Long userRequestId){
+    public UserRequest getForOffer(String username, Long userRequestId){
         return getRequest(
                 userReqRepo.getForOffer(
-                        userTokenDTO.getUsername(),
+                        username,
                         userRequestId,
                         RequestStatus.OFFER_MADE
+                )
+        );
+    }
+
+    @Override
+    public UserRequest getForAccepted(String username, String UUID) {
+        return getRequest(
+                userReqRepo.getForAccepted(
+                        username,
+                        UUID
                 )
         );
     }

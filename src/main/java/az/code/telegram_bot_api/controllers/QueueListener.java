@@ -1,6 +1,7 @@
 package az.code.telegram_bot_api.controllers;
 
 import az.code.telegram_bot_api.configs.RabbitMQConfig;
+import az.code.telegram_bot_api.models.AcceptedOffer;
 import az.code.telegram_bot_api.models.DTOs.UserData;
 import az.code.telegram_bot_api.services.interfaces.ListenerService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,5 +27,10 @@ public class QueueListener {
     public void cancelRequest(String UUID) {
         log.info("New request in 'cancelled' queue. UUID: {}", UUID);
         listenerService.cancelRequest(UUID);
+    }
+    @RabbitListener(queues = RabbitMQConfig.accepted)
+    public void acceptOffer(AcceptedOffer offer) {
+        log.info("New request in 'accepted' queue. For user: {}", offer.getUsername());
+        listenerService.acceptedOffer(offer);
     }
 }

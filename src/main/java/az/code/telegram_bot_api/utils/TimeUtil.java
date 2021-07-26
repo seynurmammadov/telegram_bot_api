@@ -33,6 +33,7 @@ public class TimeUtil {
             if (now.isBefore(start)) {
                 time = getTime(LocalDate.now(), start.plusHours(limit));
             }
+            //todo do limit correctly
             if (now.isAfter(end) || now == end) {
                 time = getTime(LocalDate.now().plusDays(1), start.plusHours(limit));
             }

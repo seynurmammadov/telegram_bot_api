@@ -46,7 +46,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public HttpStatus sendOffer(UserTokenDTO userTokenDTO, Long userRequestId, OfferDTO offerDTO) throws IOException {
-        UserRequest userRequest = requestService.getForOffer(userTokenDTO, userRequestId);
+        UserRequest userRequest = requestService.getForOffer(userTokenDTO.getUsername(), userRequestId);
         Offer offer = mapperModel.defaultMap(offerDTO,Offer.class);
         offer.setUserRequest(userRequest);
         userRequest.setOffer(offer);

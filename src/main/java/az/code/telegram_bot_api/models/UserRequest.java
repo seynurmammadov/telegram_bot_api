@@ -36,4 +36,7 @@ public class UserRequest {
     @EqualsAndHashCode.Exclude
     @OneToOne(mappedBy = "userRequest",cascade = CascadeType.ALL)
     Offer offer;
+    @OneToOne(mappedBy = "userRequest",cascade = CascadeType.ALL)
+    AcceptedOffer acceptedOffer;
+
 }
