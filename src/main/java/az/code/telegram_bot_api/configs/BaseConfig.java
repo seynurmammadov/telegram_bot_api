@@ -19,7 +19,6 @@ public class BaseConfig implements WebMvcConfigurer {
         this.tokenInterceptor = tokenInterceptor;
     }
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor);

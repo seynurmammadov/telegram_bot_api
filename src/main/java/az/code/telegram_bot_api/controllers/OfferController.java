@@ -2,7 +2,6 @@ package az.code.telegram_bot_api.controllers;
 
 import az.code.telegram_bot_api.models.DTOs.OfferDTO;
 import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
-import az.code.telegram_bot_api.models.Offer;
 import az.code.telegram_bot_api.services.interfaces.OfferService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

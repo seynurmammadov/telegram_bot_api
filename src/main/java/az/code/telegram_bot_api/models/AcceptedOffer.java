@@ -31,6 +31,6 @@ public class AcceptedOffer implements Serializable {
     @JsonIgnore
     @ToString.Exclude
     @OneToOne(targetEntity = UserRequest.class)
-    @JoinColumn(nullable = false, name = "userRequest_id")
+    @JoinColumn(nullable = false, name = "user_request_id")
     UserRequest userRequest;
 }

@@ -1,7 +1,14 @@
 package az.code.telegram_bot_api.exceptions;
 
-public class UserRequestNotFound extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UserRequestNotFound extends CustomException {
     public UserRequestNotFound() {
         super("User request not found!");
+    }
+
+    @Override
+    public HttpStatus getStatus() {
+        return HttpStatus.NOT_FOUND;
     }
 }

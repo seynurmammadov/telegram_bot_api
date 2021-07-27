@@ -1,7 +1,14 @@
 package az.code.telegram_bot_api.exceptions;
 
-public class InvalidPasswordException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class InvalidPasswordException extends CustomException {
     public InvalidPasswordException() {
         super("Invalid password!");
+    }
+
+    @Override
+    public HttpStatus getStatus() {
+        return HttpStatus.UNAUTHORIZED;
     }
 }
