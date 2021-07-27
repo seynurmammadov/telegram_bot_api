@@ -16,15 +16,16 @@ import javax.validation.constraints.Size;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OfferDTO {
     @Max(9999999999L)
+    @NotNull(message = "Price required!")
     Long price;
     @Size(max = 1000, message = "Agent name should be less than 1000 characters")
-    @NotNull
+    @NotNull(message = "Description required!")
     String description;
     @Size(max = 200, message = "Agent name should be less than 200 characters")
-    @NotNull
+    @NotNull(message = "Notes required!")
     String notes;
-    @NotNull
+    @NotNull(message = "Date interim required!")
     @Pattern(regexp = "^((0?[1-9]|[12][0-9]|3[01]).(0?[1-9]|1[012]).(19|20)\\d\\d-(0?[1-9]|[12][0-9]|3[01]).(0?[1-9]|1[012]).(19|20)\\d\\d)$",
-            message = "Invalid date interim!(Date should be like: 'xx.xx.xxxx-xx.xx.xxxx'  )")
+            message = "Invalid date interim!(Date should be like: 'xx.xx.xxxx-xx.xx.xxxx')")
     String dateInterim;
 }

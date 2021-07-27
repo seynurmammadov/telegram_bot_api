@@ -21,22 +21,22 @@ public class TimeUtil {
 
     LocalTime start;
     LocalTime end;
-    int limit;
+    LocalTime limit;
     DateTimeFormatter dtf;
 
 
     public LocalDateTime getExpireTime() {
         setData();
         LocalTime now = LocalTime.parse(LocalTime.now().format(dtf));
-        LocalTime expireTime = now.plusHours(limit);
+        LocalTime expireTime = addLimit(now);
         LocalDateTime time = LocalDateTime.now();
         if (isWithinRange(now) || isWithinRange(expireTime)) {
             if (now.isBefore(start)) {
-                time = getTimeReminder(LocalDate.now(), start.plusHours(limit));
+                time = getTimeReminder(LocalDate.now(), addLimit(start));
             } else if (expireTime.isAfter(end)) {
                 time = getTimeReminder(LocalDate.now().plusDays(1), getTimeReminder(now));
             } else if (now.isAfter(end) || now == end) {
-                time = getTimeReminder(LocalDate.now().plusDays(1), start.plusHours(limit));
+                time = getTimeReminder(LocalDate.now().plusDays(1), addLimit(start));
             }
         } else {
             time = getTimeReminder(LocalDate.now(), expireTime);
@@ -48,7 +48,7 @@ public class TimeUtil {
         dtf = DateTimeFormatter.ofPattern("HH:mm");
         start = LocalTime.parse(this.startTime, dtf);
         end = LocalTime.parse(this.endTime, dtf);
-        limit = Integer.parseInt(responseLimit);
+        limit = LocalTime.parse(this.responseLimit, dtf);
     }
 
     private LocalDateTime getTimeReminder(LocalDate now, LocalTime localTime) {
@@ -66,8 +66,13 @@ public class TimeUtil {
     }
 
     public void isWorkTime() {
+        setData();
         if (isWithinRange(LocalTime.now())) {
             throw new NotWorkTimeException();
         }
+    }
+
+    private LocalTime addLimit(LocalTime time) {
+        return time.plusHours(limit.getHour()).plusMinutes(limit.getMinute()%60);
     }
 }

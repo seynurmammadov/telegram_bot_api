@@ -25,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 public class VerificationServiceImpl implements VerificationService {
@@ -49,7 +48,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public void sendVerifyToken(User user,String url) {
+    public void sendVerifyToken(User user, String url) {
         clearTokens(user, TokenType.EMAIL_VERIFY);
         String token = verificationRepo
                 .save(VerificationToken.builder()
@@ -59,12 +58,12 @@ public class VerificationServiceImpl implements VerificationService {
                         .token(UUID.randomUUID().toString())
                         .build())
                 .getToken();
-        url = url+"/api/verify/confirm?token="+token;
-        messageUtil.regVerifyNotification(user.getEmail(),url);
+        url = url + "/api/verify/confirm?token=" + token;
+        messageUtil.regVerifyNotification(user.getEmail(), url);
     }
 
     @Override
-    public HttpStatus passwordForgot(LoginDTO loginDTO,String url) {
+    public HttpStatus passwordForgot(LoginDTO loginDTO, String url) {
         User user = userService.findUserByEmail(loginDTO.getEmail());
         clearTokens(user, TokenType.PASSWORD_RESET);
         String token = verificationRepo
@@ -75,8 +74,8 @@ public class VerificationServiceImpl implements VerificationService {
                         .token(UUID.randomUUID().toString())
                         .build())
                 .getToken();
-        url = url+ "/api/verify/reset-password/"+token;
-        messageUtil.forgot(user.getEmail(), token);
+        url = url + "/api/verify/reset-password/" + token;
+        messageUtil.forgot(user.getEmail(), url);
         return HttpStatus.OK;
     }
 
@@ -124,13 +123,12 @@ public class VerificationServiceImpl implements VerificationService {
         return HttpStatus.OK;
     }
 
-    private void clearTokens(User user, TokenType emailVerify) {
+    private void clearTokens(User user, TokenType token) {
         if (user.getVerificationToken().size() != 0) {
-            user.setVerificationToken(user.getVerificationToken()
-                    .stream().filter(t -> t.getTokenType() != emailVerify)
-                    .collect(Collectors.toList()));
+            user.getVerificationToken()
+                    .stream().filter(t -> t.getTokenType() == token)
+                    .forEach(verificationRepo::deleteToken);
         }
-        userService.save(user);
     }
 
 

@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -28,6 +29,7 @@ public class AcceptedOffer implements Serializable {
     String firstName;
     String lastName;
     Long userId;
+    LocalDateTime createdAt;
     @JsonIgnore
     @ToString.Exclude
     @OneToOne(targetEntity = UserRequest.class)

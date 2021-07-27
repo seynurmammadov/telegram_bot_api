@@ -57,14 +57,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RegistrationDTO registration(RegistrationDTO registrationDTO,String url) {
+    public RegistrationDTO registration(RegistrationDTO registrationDTO, String url) {
         RealmResource realmResource = keycloakUtil.getKeycloakRealm();
         UserRepresentation userRP = createKeycloakUser(registrationDTO);
         Response response = realmResource.users().create(userRP);
         registrationDTO.setStatusCode(response.getStatus());
         registrationDTO.setStatus(response.getStatusInfo().toString());
         registrationDTO.setUsername(userRP.getUsername());
-        createUser(registrationDTO, realmResource, response,url);
+        createUser(registrationDTO, realmResource, response, url);
         return registrationDTO;
     }
 
@@ -87,18 +87,18 @@ public class AuthServiceImpl implements AuthService {
 
 
     private void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
-                            Response response,String url) {
+                            Response response, String url) {
         if (response.getStatus() == 201) {
             setPasswordAndRole(registrationDTO, realmResource, response);
             User user = createUser(registrationDTO);
-            verificationService.sendVerifyToken(user,url);
+            verificationService.sendVerifyToken(user, url);
         }
     }
 
     private UserRepresentation createKeycloakUser(RegistrationDTO userDTO) {
         UserRepresentation user = new UserRepresentation();
         user.setEnabled(true);
-        user.setUsername(userDTO.getCompany_name() + "_" + UUID.randomUUID());
+        user.setUsername(userDTO.getCompany_name().toLowerCase(Locale.ROOT).replace(" ", "_") + "_" + UUID.randomUUID());
         user.setEmail(userDTO.getEmail());
         user.setFirstName(userDTO.getAgent_name());
         user.setLastName(userDTO.getAgent_surname());

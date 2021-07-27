@@ -26,14 +26,14 @@ public class RequestController {
 
     @GetMapping("")
     public ResponseEntity<List<UserRequest>> getAll(@RequestAttribute UserTokenDTO user,
-                                                         @RequestParam(required = false, defaultValue = "0")
-                                                                 Integer pageNo,
-                                                         @RequestParam(required = false, defaultValue = "10")
-                                                                 Integer itemsCount,
-                                                         @RequestParam(required = false, defaultValue = "requestStatus")
-                                                                 String sortBy,
-                                                         @RequestParam(required = false)
-                                                                 String status) {
+                                                    @RequestParam(required = false, defaultValue = "0")
+                                                            Integer pageNo,
+                                                    @RequestParam(required = false, defaultValue = "10")
+                                                            Integer itemsCount,
+                                                    @RequestParam(required = false, defaultValue = "requestStatus")
+                                                            String sortBy,
+                                                    @RequestParam(required = false)
+                                                            String status) {
         List<UserRequest> requests;
         if (status != null) {
             log.info("User with username '{}' calls get requests by status", user.getUsername());
@@ -59,7 +59,8 @@ public class RequestController {
     }
 
     @PutMapping("/archive/{userRequestId}")
-    public ResponseEntity<Void> archiveRequest(@RequestAttribute UserTokenDTO user, @PathVariable Long userRequestId) {
+    public ResponseEntity<Void> archiveRequest(@RequestAttribute UserTokenDTO user,
+                                               @PathVariable Long userRequestId) {
         log.info("User with username '{}' calls archive requests method request id {}",
                 user.getUsername(),
                 userRequestId);
@@ -67,14 +68,17 @@ public class RequestController {
     }
 
     @PutMapping("/unarchive/{userRequestId}")
-    public ResponseEntity<Void> unarchiveRequest(@RequestAttribute UserTokenDTO user, @PathVariable Long userRequestId) {
+    public ResponseEntity<Void> unarchiveRequest(@RequestAttribute UserTokenDTO user,
+                                                 @PathVariable Long userRequestId) {
         log.info("User with username '{}' calls unarchive requests method request id {}",
                 user.getUsername(),
                 userRequestId);
         return new ResponseEntity<>(requestService.unarchiveRequest(user, userRequestId));
     }
+
     @DeleteMapping("/archived/{userRequestId}")
-    public ResponseEntity<Void> deleteArchived(@RequestAttribute UserTokenDTO user, @PathVariable Long userRequestId) {
+    public ResponseEntity<Void> deleteArchived(@RequestAttribute UserTokenDTO user,
+                                               @PathVariable Long userRequestId) {
         log.info("User with username '{}' calls delete archived requests method request id {}",
                 user.getUsername(),
                 userRequestId);

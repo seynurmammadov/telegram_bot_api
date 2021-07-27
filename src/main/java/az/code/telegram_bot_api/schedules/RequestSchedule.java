@@ -29,7 +29,7 @@ public class RequestSchedule {
         this.template = template;
     }
 
-    @Scheduled(cron = "${cron.expression}", zone = "Asia/Baku")
+    @Scheduled(cron = "${cron.expiredTimeExpression}", zone = "Asia/Baku")
     public void expiredRequests() {
         List<Request> requests = requestRepository.getAllActive();
         LocalDateTime nowDate = LocalDateTime.now();

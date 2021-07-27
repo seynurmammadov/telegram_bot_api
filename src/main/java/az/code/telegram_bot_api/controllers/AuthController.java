@@ -27,20 +27,27 @@ public class AuthController {
     final
     MessageUtil messageUtil;
 
-    public AuthController(AuthService authService, VerificationService verificationService, MessageUtil messageUtil) {
+    public AuthController(AuthService authService, VerificationService verificationService,
+                          MessageUtil messageUtil) {
         this.authService = authService;
         this.verificationService = verificationService;
         this.messageUtil = messageUtil;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegistrationDTO> register(@Valid @RequestBody RegistrationDTO registrationDTO, HttpServletRequest request) {
+    public ResponseEntity<RegistrationDTO> register(@Valid @RequestBody RegistrationDTO registrationDTO,
+                                                    HttpServletRequest request) {
         log.info("User {} is registering", registrationDTO.getAgent_name());
-        return new ResponseEntity<>(authService.registration(registrationDTO, messageUtil.getUrl(request)), HttpStatus.OK);
+        return new ResponseEntity<>(authService.registration(
+                registrationDTO,
+                messageUtil.getUrl(request)),
+                HttpStatus.OK
+        );
     }
 
     @PostMapping(path = "/login")
     public ResponseEntity<AccessTokenResponse> login(@RequestBody LoginDTO loginDTO) throws JsonProcessingException {
+        log.info("User with email {} is joining", loginDTO.getEmail());
         return ResponseEntity.ok(authService.login(loginDTO));
     }
 

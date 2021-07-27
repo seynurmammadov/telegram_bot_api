@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "verification_tokens")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class VerificationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,7 @@ public class VerificationToken {
     TokenType tokenType;
     LocalDateTime createdDate = LocalDateTime.now();
     @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "user_id")
     User user;

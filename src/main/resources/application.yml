@@ -39,12 +39,13 @@ app:
 
 CLOUDAMQP_URL: amqps://fuytoamo:Gp7yAwntD17GPEWxLDUIPHvzkDHekX_q@squid.rmq.cloudamqp.com/fuytoamo
 cron:
-  expression: "0 * 9-23 * * ?"
-
+  expiredTimeExpression: "0 * 00-23 * * ?"
+  offerCleaningExpression: "0 * 00-23 * * ?"
 timer:
   start: "09:00"
   end : "17:00"
-  responseLimit: "2"
+  responseLimit: "00:45"
+
 offerTemplate:
   path: "offer.html"
   width: 400

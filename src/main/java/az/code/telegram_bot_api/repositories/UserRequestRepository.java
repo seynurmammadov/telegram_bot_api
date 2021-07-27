@@ -6,8 +6,10 @@ import az.code.telegram_bot_api.models.enums.RequestStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 public interface UserRequestRepository extends JpaRepository<UserRequest, Long> {
@@ -32,7 +34,7 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Long> 
     @Query("select ur from UserRequest ur " +
             "where ur.user.username=:username and ur.requestStatus<>:except and " +
             "ur.id=:id and ur.requestStatus<>:except2 and ur.isArchived=true" +
-            " and ur.isDeleted=false")
+            " and ur.isDeleted=false and ur.request.isActive=true")
     Optional<UserRequest> getArchivedById(String username, Long id, RequestStatus except, RequestStatus except2);
 
     @Query("select ur from UserRequest ur " +
@@ -51,5 +53,12 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Long> 
             "ur.request.UUID=:UUID and ur.isDeleted=false")
     Optional<UserRequest> getForAccepted(String username, String UUID);
 
+//    @Transactional
+//    @Modifying
+//    @Query("delete from UserRequest ur where ur.isDeleted=true")
+//    void removeDeletedRequest();
+//
+    @Query("select count(ur) from UserRequest ur where ur.isDeleted=true")
+    long getDeleteItemCount();
 }
 

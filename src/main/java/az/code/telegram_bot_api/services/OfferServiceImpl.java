@@ -14,6 +14,7 @@ import az.code.telegram_bot_api.services.interfaces.RequestService;
 import az.code.telegram_bot_api.utils.ConverterUtil;
 import az.code.telegram_bot_api.utils.TimeUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class OfferServiceImpl implements OfferService {
     RabbitTemplate template;
     final
     ConverterUtil converterUtil;
-
+    final
     TimeUtil timeUtil;
 
     @Value("${offerTemplate.path}")
@@ -42,12 +43,13 @@ public class OfferServiceImpl implements OfferService {
 
     public OfferServiceImpl(OfferRepository offerRepository, RequestService requestService,
                             ConverterUtil converterUtil, RabbitTemplate template,
-                            MapperModel mapperModel) {
+                            MapperModel mapperModel, TimeUtil timeUtil) {
         this.offerRepository = offerRepository;
         this.requestService = requestService;
         this.converterUtil = converterUtil;
         this.template = template;
         this.mapperModel = mapperModel;
+        this.timeUtil = timeUtil;
     }
 
     @Override

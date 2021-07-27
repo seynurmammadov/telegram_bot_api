@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/verify")
@@ -37,17 +38,19 @@ public class VerifyController {
 
     @PostMapping(path = "/forgot-password")
     public ResponseEntity<Void> forgot(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
-        return new ResponseEntity<>(verificationService.passwordForgot(loginDTO,messageUtil.getUrl(request)));
+        return new ResponseEntity<>(verificationService.passwordForgot(loginDTO, messageUtil.getUrl(request)));
     }
 
     @PostMapping(path = "/reset-password/{token}")
     public ResponseEntity<Void> resetWithToken(@PathVariable String token,
-                                               @RequestBody ResetPasswordDTO resetPasswordDTO) {
-        return new ResponseEntity<>(verificationService.resetWithToken(token,resetPasswordDTO));
+                                               @Valid @RequestBody ResetPasswordDTO resetPasswordDTO) {
+        return new ResponseEntity<>(verificationService.resetWithToken(token, resetPasswordDTO));
     }
+
     @PostMapping(path = "/reset-password")
     public ResponseEntity<Void> resetWithOldPassword(@RequestAttribute UserTokenDTO user,
-                                                     @RequestBody ResetPasswordDTO resetPasswordDTO) {
-        return new ResponseEntity<>(verificationService.resetWithOldPassword(user,resetPasswordDTO));
+                                                     @Valid @RequestBody ResetPasswordDTO resetPasswordDTO) {
+        log.info("User with username '{}' calls resetWithOldPassword", user.getUsername());
+        return new ResponseEntity<>(verificationService.resetWithOldPassword(user, resetPasswordDTO));
     }
 }

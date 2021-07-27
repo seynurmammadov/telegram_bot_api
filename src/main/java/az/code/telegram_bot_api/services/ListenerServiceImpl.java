@@ -18,6 +18,7 @@ import az.code.telegram_bot_api.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -73,6 +74,7 @@ public class ListenerServiceImpl implements ListenerService {
         UserRequest request = requestService.getForAccepted(offer.getUsername(),offer.getUUID());
         request.setRequestStatus(RequestStatus.ACCEPTED);
         request.getRequest().setActive(false);
+        offer.setCreatedAt(LocalDateTime.now());
         offer.setUserRequest(request);
         acceptedRepo.save(offer);
         requestService.save(request);

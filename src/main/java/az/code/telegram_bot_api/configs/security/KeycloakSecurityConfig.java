@@ -37,9 +37,12 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     //todo has role
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
         http.csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("/api/request*").hasRole("user")
+                .antMatchers("/api/verify/reset-password").hasRole("user")
                 .anyRequest()
                 .permitAll();
     }

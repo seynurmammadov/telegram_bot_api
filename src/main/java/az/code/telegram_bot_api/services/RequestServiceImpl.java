@@ -94,18 +94,20 @@ public class RequestServiceImpl implements RequestService {
                         userRequestId
                 )
         );
-        userRequest.setArchived(false);
+        userRequest.setDeleted(true);
         save(userRequest);
         return HttpStatus.OK;
     }
+
     private UserRequest getRequest(Optional<UserRequest> userRequest) {
         if (userRequest.isPresent()) {
             return userRequest.get();
         }
         throw new UserRequestNotFound();
     }
+
     @Override
-    public UserRequest getForOffer(String username, Long userRequestId){
+    public UserRequest getForOffer(String username, Long userRequestId) {
         return getRequest(
                 userReqRepo.getForOffer(
                         username,
