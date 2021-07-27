@@ -5,9 +5,13 @@ import az.code.telegram_bot_api.models.DTOs.ResetPasswordDTO;
 import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.services.interfaces.AuthService;
 import az.code.telegram_bot_api.services.interfaces.VerificationService;
+import az.code.telegram_bot_api.utils.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("api/verify")
@@ -15,23 +19,25 @@ import org.springframework.web.bind.annotation.*;
 public class VerifyController {
     final
     AuthService authService;
-
     final
     VerificationService verificationService;
+    final
+    MessageUtil messageUtil;
 
-    public VerifyController(AuthService authService, VerificationService verificationService) {
+    public VerifyController(AuthService authService, VerificationService verificationService, MessageUtil messageUtil) {
         this.authService = authService;
         this.verificationService = verificationService;
+        this.messageUtil = messageUtil;
     }
 
-    @PostMapping(path = "/confirm")
+    @GetMapping(path = "/confirm")
     public ResponseEntity<Void> verify(@RequestParam("token") String token) {
         return new ResponseEntity<>(verificationService.verify(token));
     }
 
     @PostMapping(path = "/forgot-password")
-    public ResponseEntity<Void> forgot(@RequestBody LoginDTO loginDTO) {
-        return new ResponseEntity<>(verificationService.passwordForgot(loginDTO));
+    public ResponseEntity<Void> forgot(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+        return new ResponseEntity<>(verificationService.passwordForgot(loginDTO,messageUtil.getUrl(request)));
     }
 
     @PostMapping(path = "/reset-password/{token}")

@@ -6,6 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.keycloak.representations.AccessTokenResponse;
 
 public interface AuthService {
-    RegistrationDTO registration(RegistrationDTO registrationDTO);
+    RegistrationDTO registration(RegistrationDTO registrationDTO,String url);
     AccessTokenResponse login( LoginDTO loginDTO) throws JsonProcessingException;
 }

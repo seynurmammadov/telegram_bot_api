@@ -57,14 +57,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RegistrationDTO registration(RegistrationDTO registrationDTO) {
+    public RegistrationDTO registration(RegistrationDTO registrationDTO,String url) {
         RealmResource realmResource = keycloakUtil.getKeycloakRealm();
         UserRepresentation userRP = createKeycloakUser(registrationDTO);
         Response response = realmResource.users().create(userRP);
         registrationDTO.setStatusCode(response.getStatus());
         registrationDTO.setStatus(response.getStatusInfo().toString());
         registrationDTO.setUsername(userRP.getUsername());
-        createUser(registrationDTO, realmResource, response);
+        createUser(registrationDTO, realmResource, response,url);
         return registrationDTO;
     }
 
@@ -87,11 +87,11 @@ public class AuthServiceImpl implements AuthService {
 
 
     private void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
-                            Response response) {
+                            Response response,String url) {
         if (response.getStatus() == 201) {
             setPasswordAndRole(registrationDTO, realmResource, response);
             User user = createUser(registrationDTO);
-            verificationService.sendVerifyToken(user);
+            verificationService.sendVerifyToken(user,url);
         }
     }
 

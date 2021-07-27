@@ -49,7 +49,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public void sendVerifyToken(User user) {
+    public void sendVerifyToken(User user,String url) {
         clearTokens(user, TokenType.EMAIL_VERIFY);
         String token = verificationRepo
                 .save(VerificationToken.builder()
@@ -59,11 +59,12 @@ public class VerificationServiceImpl implements VerificationService {
                         .token(UUID.randomUUID().toString())
                         .build())
                 .getToken();
-        messageUtil.regVerifyNotification(user.getEmail(), token);
+        url = url+"/api/verify/confirm?token="+token;
+        messageUtil.regVerifyNotification(user.getEmail(),url);
     }
 
     @Override
-    public HttpStatus passwordForgot(LoginDTO loginDTO) {
+    public HttpStatus passwordForgot(LoginDTO loginDTO,String url) {
         User user = userService.findUserByEmail(loginDTO.getEmail());
         clearTokens(user, TokenType.PASSWORD_RESET);
         String token = verificationRepo
@@ -74,6 +75,7 @@ public class VerificationServiceImpl implements VerificationService {
                         .token(UUID.randomUUID().toString())
                         .build())
                 .getToken();
+        url = url+ "/api/verify/reset-password/"+token;
         messageUtil.forgot(user.getEmail(), token);
         return HttpStatus.OK;
     }

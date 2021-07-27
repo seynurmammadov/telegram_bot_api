@@ -18,12 +18,31 @@ import java.util.Objects;
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public final ResponseEntity<Object> handleAllExceptions(CustomException ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionResponse, ex.getStatus());
+        return new ResponseEntity<>(ExceptionResponse
+                .builder()
+                .timestamp(new Date())
+                .message(ex.getMessage())
+                .details(request.getDescription(false))
+                .build(),
+                ex.getStatus());
     }
+
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Validation Failed", Objects.requireNonNull(ex.getBindingResult().getFieldError()).getDefaultMessage());
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
+        StringBuilder sb = new StringBuilder();
+        ex.getBindingResult()
+                .getAllErrors()
+                .forEach(e -> sb.append(e.getDefaultMessage())
+                        .append(System.getProperty("line.separator")));
+        return new ResponseEntity<>(ExceptionResponse
+                .builder()
+                .timestamp(new Date())
+                .message("Validation Failed")
+                .details(sb.toString())
+                .build(),
+                HttpStatus.BAD_REQUEST);
     }
 }
