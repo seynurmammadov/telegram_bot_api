@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRequestRepository extends JpaRepository<UserRequest, Long> {
@@ -53,12 +53,9 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Long> 
             "ur.request.UUID=:UUID and ur.isDeleted=false")
     Optional<UserRequest> getForAccepted(String username, String UUID);
 
-//    @Transactional
-//    @Modifying
-//    @Query("delete from UserRequest ur where ur.isDeleted=true")
-//    void removeDeletedRequest();
-//
-    @Query("select count(ur) from UserRequest ur where ur.isDeleted=true")
-    long getDeleteItemCount();
+
+
+    @Query("select ur from UserRequest ur where ur.isDeleted=true")
+    List<UserRequest> getDeleteItems();
 }
 
