@@ -17,7 +17,7 @@ public class OfferCleaningSchedule {
     //todo x days
     @Scheduled(cron = "${cron.offerCleaningExpression}", zone = "Asia/Baku")
     public void removeDeletedRequest() {
-        log.info("expiredRequests Scheduler started working. Requests count :"+requestRepo.getDeleteItemCount() );
+        log.info("removeDeletedRequest Scheduler started working. Requests count :"+requestRepo.getDeleteItemCount() );
 //        requestRepo.removeDeletedRequest();
     }
 }

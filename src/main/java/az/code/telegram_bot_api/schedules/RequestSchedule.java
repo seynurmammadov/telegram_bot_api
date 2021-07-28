@@ -32,21 +32,18 @@ public class RequestSchedule {
     @Scheduled(cron = "${cron.expiredTimeExpression}", zone = "Asia/Baku")
     public void expiredRequests() {
         List<Request> requests = requestRepository.getAllActive();
-        LocalDateTime nowDate = LocalDateTime.now();
         log.info("expiredRequests Scheduler started working. Requests count :" + requests.size());
         for (Request r : requests) {
-            if (r.getExperationDate().isBefore(nowDate)) {
-                for (UserRequest userRequest : r.getUserRequests()) {
-                    userRequest.setArchived(true);
-                    userRequest.setRequestStatus(RequestStatus.EXPIRED);
-                }
-                template.convertAndSend(
-                        RabbitMQConfig.exchange,
-                        RabbitMQConfig.expired,
-                        r.getUUID());
-                r.setActive(false);
-                requestRepository.save(r);
+            for (UserRequest userRequest : r.getUserRequests()) {
+                userRequest.setArchived(true);
+                userRequest.setRequestStatus(RequestStatus.EXPIRED);
             }
+            template.convertAndSend(
+                    RabbitMQConfig.exchange,
+                    RabbitMQConfig.expired,
+                    r.getUUID());
+            r.setActive(false);
+            requestRepository.save(r);
         }
     }
 }

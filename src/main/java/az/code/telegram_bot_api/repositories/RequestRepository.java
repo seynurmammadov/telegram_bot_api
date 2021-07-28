@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
-    @Query("select r from Request r where r.isActive=true")
+    @Query("select r from Request r where r.isActive=true and  r.experationDate<CURRENT_TIMESTAMP ")
     List<Request> getAllActive();
 
     @Query("select  r from Request r where r.isActive=true and r.UUID=:UUID")

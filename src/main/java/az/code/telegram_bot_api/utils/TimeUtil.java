@@ -73,6 +73,6 @@ public class TimeUtil {
     }
 
     private LocalTime addLimit(LocalTime time) {
-        return time.plusHours(limit.getHour()).plusMinutes(limit.getMinute()%60);
+        return time.plusHours(limit.getHour()).plusMinutes(limit.getMinute());
     }
 }
