@@ -55,6 +55,7 @@ public class ConverterUtil {
         multipart.addFormField("viewport_height", templateHeight);
         return multipart.execute();
     }
+
     private byte[] getImage(String imageUrl) throws IOException {
         URL url = new URL(imageUrl);
 

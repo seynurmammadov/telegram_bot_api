@@ -32,27 +32,27 @@ public class TimeUtil {
         LocalDateTime time = LocalDateTime.now();
         if (isWithinRange(now) || isWithinRange(expireTime)) {
             if (now.isBefore(start)) {
-                time = getTimeReminder(LocalDate.now(), addLimit(start));
-            } else if (expireTime.isAfter(end)) {
-                time = getTimeReminder(LocalDate.now().plusDays(1), getTimeReminder(now));
+                time = convertToLocalDateTime(LocalDate.now(), addLimit(start));
             } else if (now.isAfter(end) || now == end) {
-                time = getTimeReminder(LocalDate.now().plusDays(1), addLimit(start));
+                time = convertToLocalDateTime(LocalDate.now().plusDays(1), addLimit(start));
+            } else if (expireTime.isAfter(end)) {
+                time = convertToLocalDateTime(LocalDate.now().plusDays(1), getTimeReminder(now));
             }
         } else {
-            time = getTimeReminder(LocalDate.now(), expireTime);
+            time = convertToLocalDateTime(LocalDate.now(), expireTime);
         }
 
         return time;
     }
 
-    private void setData() {
+    public void setData() {
         dtf = DateTimeFormatter.ofPattern("HH:mm");
         start = LocalTime.parse(this.startTime, dtf);
         end = LocalTime.parse(this.endTime, dtf);
         limit = LocalTime.parse(this.responseLimit, dtf);
     }
 
-    private LocalDateTime getTimeReminder(LocalDate now, LocalTime localTime) {
+    public LocalDateTime convertToLocalDateTime(LocalDate now, LocalTime localTime) {
         return LocalDateTime.of(now, localTime);
     }
 
@@ -60,10 +60,10 @@ public class TimeUtil {
         return date.isBefore(start) || date.isAfter(end);
     }
 
-    private LocalTime getTimeReminder(LocalTime now) {
+    public LocalTime getTimeReminder(LocalTime now) {
         long diffHour = now.until(end, ChronoUnit.HOURS);
         long diffMinute = now.until(end, ChronoUnit.MINUTES) % 60;
-        return start.plusHours(diffHour).plusMinutes(diffMinute);
+        return start.plusHours(diffHour).plusMinutes(limit.getHour()*60+limit.getMinute()-diffMinute);
     }
 
     public void isWorkTime() {
@@ -73,7 +73,7 @@ public class TimeUtil {
         }
     }
 
-    private LocalTime addLimit(LocalTime time) {
+    public LocalTime addLimit(LocalTime time) {
         return time.plusHours(limit.getHour()).plusMinutes(limit.getMinute());
     }
 }

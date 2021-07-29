@@ -1,0 +1,55 @@
+server:
+  port: 5000
+#TODO change email
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: subsciption.applcation@gmail.com
+    password: itmqbzlhbsqiuwez
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tour_bot_api
+    username: postgres
+    password: seynur2462736
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  realm: tour_bot
+  resource: tour_bot_microservice
+  bearer-only: true
+  ssl-required: external
+  use-resource-role-mappings: true
+  credentials.secret: d9422819-4855-415d-b8ff-f9fba4203d05
+
+app:
+  keycloak:
+    username: seynur
+    password: 12345678
+    admin:
+      realm: master
+      resource: admin-cli
+    role: app-user
+
+CLOUDAMQP_URL: amqps://fuytoamo:Gp7yAwntD17GPEWxLDUIPHvzkDHekX_q@squid.rmq.cloudamqp.com/fuytoamo
+cron:
+  expiredTimeExpression: "0 * 00-23 * * ?"
+  offerCleaningExpression: "0 * 00-23 * * ?"
+timer:
+  start: "09:00"
+  end : "17:00"
+  responseLimit: "00:45"
+
+offerTemplate:
+  path: "offer.html"
+  width: 400
+  height: 600
+  converter:
+    url: "https://hcti.io/v1/image"
+    token: NTJhNGNlNmEtMzE1NC00ZjRjLTliODAtZDNjMzU2NmRhZTgzOmUxMDE1NjM4LTRjZDAtNDM5ZC04NzBiLTkxYzI4MzY1Mjc0Zg==
