@@ -7,7 +7,7 @@ import az.code.telegram_bot_api.models.User;
 
 public interface UserService {
     User findUserByEmail(String email);
-    void save(User user);
-    void activeAndSave(User user);
+    User save(User user);
+    User activeAndSave(User user);
     void addRequestToUsers(Request request);
 }

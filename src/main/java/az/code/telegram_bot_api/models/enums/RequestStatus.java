@@ -7,6 +7,10 @@ public enum RequestStatus {
     EXPIRED("expired"),
     USER_CANCEL("userCancel");
 
+    public String getVal() {
+        return val;
+    }
+
     private final String val;
 
     RequestStatus(String val) {

@@ -14,7 +14,6 @@ import az.code.telegram_bot_api.services.interfaces.RequestService;
 import az.code.telegram_bot_api.utils.ConverterUtil;
 import az.code.telegram_bot_api.utils.TimeUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

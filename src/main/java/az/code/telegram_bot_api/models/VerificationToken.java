@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "verification_tokens")
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 public class VerificationToken {
@@ -23,9 +24,11 @@ public class VerificationToken {
     Long id;
     String token;
     TokenType tokenType;
+    @EqualsAndHashCode.Exclude
     LocalDateTime createdDate = LocalDateTime.now();
     @JsonIgnore
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "user_id")
     User user;

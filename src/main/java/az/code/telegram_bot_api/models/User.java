@@ -19,6 +19,7 @@ import java.util.Set;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
+@EqualsAndHashCode
 public class User {
     @Id
     @Column(nullable = false, unique = true)
@@ -29,12 +30,12 @@ public class User {
     Long tin;
     String agent_name;
     String agent_surname;
+    @EqualsAndHashCode.Exclude
     LocalDateTime created_at;
     boolean isActive;
-
+    @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
     List<VerificationToken> verificationToken = new ArrayList<>();
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
     Set<UserRequest> userRequests = new HashSet<>();
     public void addRequest(UserRequest request){

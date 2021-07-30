@@ -18,14 +18,16 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "user_requests")
 public class UserRequest {
+    @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @JsonIgnore
     @ManyToOne(targetEntity = User.class)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JoinColumn(nullable = false, name = "user_id")
     User user;
-
     @ManyToOne(targetEntity = Request.class)
     @EqualsAndHashCode.Exclude
     @JoinColumn(nullable = false, name = "request_id")
@@ -34,9 +36,10 @@ public class UserRequest {
     boolean isArchived;
     boolean isDeleted;
     @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "userRequest",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "userRequest", cascade = CascadeType.ALL)
     Offer offer;
-    @OneToOne(mappedBy = "userRequest",cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "userRequest", cascade = CascadeType.ALL)
     AcceptedOffer acceptedOffer;
 
 }

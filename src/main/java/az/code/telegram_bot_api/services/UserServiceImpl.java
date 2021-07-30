@@ -30,14 +30,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
-        userRepo.save(user);
+    public User save(User user) {
+       return userRepo.save(user);
     }
 
     @Override
-    public void activeAndSave(User user) {
+    public User activeAndSave(User user) {
         user.setActive(true);
-        save(user);
+       return save(user);
     }
     @Override
     public void addRequestToUsers(Request request) {

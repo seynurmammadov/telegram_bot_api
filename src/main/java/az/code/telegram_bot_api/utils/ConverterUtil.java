@@ -26,23 +26,32 @@ public class ConverterUtil {
     @Value("${offerTemplate.converter.token}")
     String converterToken;
 
-    public byte[] htmlToImage(String filePath, Offer offer, String companyName) throws IOException {
+    public byte[] htmlToImage(String templatePath, Offer offer, String companyName) throws IOException {
+        StringBuilder sb = readHtml(templatePath);
+        editHtml(offer, companyName, sb);
+        return getImage(new URL(getImageUrl(sb.toString())));
+    }
+
+    private StringBuilder readHtml(String templatePath) throws IOException {
         String line;
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(templatePath)))) {
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
         }
+        return sb;
+    }
+
+    private void editHtml(Offer offer, String companyName, StringBuilder sb) {
         replace(sb, offer.getDateInterim(), date);
         replace(sb, companyName, company);
         replace(sb, offer.getDescription(), desc);
         replace(sb, offer.getPrice().toString(), price);
         replace(sb, offer.getNotes(), notes);
-        return getImage(getImageUrl(sb.toString()));
     }
 
-    private void replace(StringBuilder sb, String val, String replaceItem) {
+    public void replace(StringBuilder sb, String val, String replaceItem) {
         sb.replace(sb.indexOf(replaceItem), sb.indexOf(replaceItem) + replaceItem.length(), val);
     }
 
@@ -56,15 +65,11 @@ public class ConverterUtil {
         return multipart.execute();
     }
 
-    private byte[] getImage(String imageUrl) throws IOException {
-        URL url = new URL(imageUrl);
-
+    public byte[] getImage(URL url) throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-
         try (InputStream stream = url.openStream())
         {
             byte[] buffer = new byte[4096];
-
             while (true)
             {
                 int bytesRead = stream.read(buffer);

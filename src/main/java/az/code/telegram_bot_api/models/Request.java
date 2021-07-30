@@ -19,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "requests")
 @SequenceGenerator(name = "order_seq", initialValue = 1000000, allocationSize = 1)
@@ -39,11 +40,14 @@ public class Request {
     AddressType addressToType;
     String travellerCount;
     int budget;
+    @EqualsAndHashCode.Exclude
     LocalDateTime createdAt;
+    @EqualsAndHashCode.Exclude
     LocalDateTime experationDate;
     boolean isActive;
     @JsonIgnore
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.EAGER)
     List<UserRequest> userRequests = new ArrayList<>();
 }

@@ -33,10 +33,8 @@ public class VerificationServiceImpl implements VerificationService {
     VerificationRepo verificationRepo;
     final
     MessageUtil messageUtil;
-
     final
     KeycloakUtil keycloakUtil;
-
     final
     UserService userService;
 
@@ -61,7 +59,7 @@ public class VerificationServiceImpl implements VerificationService {
         url = url + "/api/verify/confirm?token=" + token;
         messageUtil.regVerifyNotification(user.getEmail(), url);
     }
-
+    //Todo remove hard code
     @Override
     public HttpStatus passwordForgot(LoginDTO loginDTO, String url) {
         User user = userService.findUserByEmail(loginDTO.getEmail());
@@ -123,7 +121,7 @@ public class VerificationServiceImpl implements VerificationService {
         return HttpStatus.OK;
     }
 
-    private void clearTokens(User user, TokenType token) {
+    public void clearTokens(User user, TokenType token) {
         if (user.getVerificationToken().size() != 0) {
             user.getVerificationToken()
                     .stream().filter(t -> t.getTokenType() == token)
