@@ -23,11 +23,12 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "requests")
 @SequenceGenerator(name = "order_seq", initialValue = 1000000, allocationSize = 1)
-public class Request {
+public class Request implements Cloneable {
     @Id
     @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
     Long orderId;
+
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "lang_id")
     Language language;
@@ -50,4 +51,9 @@ public class Request {
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.EAGER)
     List<UserRequest> userRequests = new ArrayList<>();
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

@@ -1,9 +1,6 @@
 package az.code.telegram_bot_api.utils;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -14,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-class TimeUtilTest {
+public class TimeUtilTest {
     TimeUtil timeUtil;
-    static MockedStatic<Clock> clockMockedStatic;
+    public static MockedStatic<Clock> clockMockedStatic;
 
     @BeforeAll
     static void cloak() {
@@ -124,5 +121,10 @@ class TimeUtilTest {
     private void mockClock(String val) {
         Clock clock = Clock.fixed(Instant.parse(val), ZoneId.of("UTC"));
         clockMockedStatic.when(Clock::systemDefaultZone).thenReturn(clock);
+    }
+
+    @AfterAll
+    public static void close() {
+        clockMockedStatic.close();
     }
 }

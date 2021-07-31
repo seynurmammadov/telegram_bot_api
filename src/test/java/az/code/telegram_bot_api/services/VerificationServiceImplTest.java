@@ -52,6 +52,8 @@ class VerificationServiceImplTest {
         verificationService.clearTokens(user, TokenType.EMAIL_VERIFY);
     }
 
+
+
     private boolean findByToken(TokenType tokenType) {
         try {
             verificationService.findByToken("PASSWORD_RESET", tokenType);

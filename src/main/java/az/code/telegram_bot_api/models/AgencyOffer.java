@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AgencyOffer {
+public class AgencyOffer implements Cloneable {
     Long id;
     String username;
     String UUID;
@@ -19,4 +19,8 @@ public class AgencyOffer {
     @Transient
     byte[] file;
     String filePath;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

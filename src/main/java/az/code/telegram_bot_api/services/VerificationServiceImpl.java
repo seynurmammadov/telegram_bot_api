@@ -29,13 +29,11 @@ import java.util.UUID;
 @Component
 public class VerificationServiceImpl implements VerificationService {
 
-    final
+
     VerificationRepo verificationRepo;
-    final
     MessageUtil messageUtil;
-    final
+
     KeycloakUtil keycloakUtil;
-    final
     UserService userService;
 
     public VerificationServiceImpl(VerificationRepo verificationRepo, MessageUtil messageUtil, KeycloakUtil keycloakUtil, UserService userService) {

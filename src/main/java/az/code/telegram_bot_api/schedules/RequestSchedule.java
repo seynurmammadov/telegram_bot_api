@@ -18,9 +18,7 @@ import java.util.List;
 @Component
 @Slf4j
 public class RequestSchedule {
-    final
     RequestRepository requestRepository;
-    final
     RabbitTemplate template;
 
 

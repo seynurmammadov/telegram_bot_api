@@ -23,21 +23,15 @@ import java.io.IOException;
 @Service
 public class OfferServiceImpl implements OfferService {
 
-    final
     OfferRepository offerRepository;
-    final
     RequestService requestService;
-    final
     RabbitTemplate template;
-    final
     ConverterUtil converterUtil;
-    final
     TimeUtil timeUtil;
 
     @Value("${offerTemplate.path}")
     String templatePath;
 
-    final
     MapperModel mapperModel;
 
     public OfferServiceImpl(OfferRepository offerRepository, RequestService requestService,
@@ -65,7 +59,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
 
-    private HttpStatus sendOffer(UserRequest userRequest) throws IOException {
+    public HttpStatus sendOffer(UserRequest userRequest) throws IOException {
         byte[] offerImage = converterUtil.htmlToImage(templatePath,
                 userRequest.getOffer(),
                 userRequest.getUser().getCompany_name());

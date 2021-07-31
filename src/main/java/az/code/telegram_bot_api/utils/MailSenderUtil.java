@@ -10,7 +10,6 @@ public class MailSenderUtil {
     final
     JavaMailSender javaMailSender;
 
-    @Autowired
     public MailSenderUtil(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }

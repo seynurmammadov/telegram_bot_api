@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
-public class VerificationToken {
+public class VerificationToken implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -32,4 +32,8 @@ public class VerificationToken {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "user_id")
     User user;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

@@ -17,7 +17,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "user_requests")
-public class UserRequest {
+public class UserRequest implements Cloneable{
     @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +41,8 @@ public class UserRequest {
     @EqualsAndHashCode.Exclude
     @OneToOne(mappedBy = "userRequest", cascade = CascadeType.ALL)
     AcceptedOffer acceptedOffer;
-
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

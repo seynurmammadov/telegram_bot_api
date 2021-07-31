@@ -15,7 +15,8 @@ import java.util.List;
 @Builder
 @EqualsAndHashCode
 @Table(name = "languages")
-public class Language implements Serializable {
+@ToString
+public class Language implements Serializable,Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,4 +26,8 @@ public class Language implements Serializable {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "language")
     List<Request> requests;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

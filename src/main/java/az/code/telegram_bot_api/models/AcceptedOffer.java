@@ -16,23 +16,29 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
+@EqualsAndHashCode
 @Table(name = "accepted_offers")
-public class AcceptedOffer implements Serializable {
+public class AcceptedOffer implements Serializable,Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String UUID;
-    String username;
+    String agentUsername;
     String phoneNumber;
-    @Column(name = "user_name")
-    String userName;
+    String username;
     String firstName;
     String lastName;
     Long userId;
+    @EqualsAndHashCode.Exclude
     LocalDateTime createdAt;
     @JsonIgnore
     @ToString.Exclude
     @OneToOne(targetEntity = UserRequest.class)
     @JoinColumn(nullable = false, name = "user_request_id")
     UserRequest userRequest;
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

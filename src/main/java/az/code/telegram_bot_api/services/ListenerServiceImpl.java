@@ -10,12 +10,10 @@ import az.code.telegram_bot_api.models.mapper.MapperModel;
 import az.code.telegram_bot_api.repositories.AcceptedOfferRepository;
 import az.code.telegram_bot_api.repositories.LanguageRepository;
 import az.code.telegram_bot_api.repositories.RequestRepository;
-import az.code.telegram_bot_api.repositories.UserRequestRepository;
 import az.code.telegram_bot_api.services.interfaces.ListenerService;
 import az.code.telegram_bot_api.services.interfaces.RequestService;
 import az.code.telegram_bot_api.services.interfaces.UserService;
 import az.code.telegram_bot_api.utils.TimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,19 +21,19 @@ import java.util.Optional;
 
 @Service
 public class ListenerServiceImpl implements ListenerService {
-    final
+
     RequestRepository requestRepository;
-    final
+
     MapperModel mapperModel;
-    final
+
     LanguageRepository languageRepository;
-    final
+
     TimeUtil timeUtil;
-    final
+
     UserService userService;
-    final
+
     RequestService requestService;
-    final
+
     AcceptedOfferRepository acceptedRepo;
 
     public ListenerServiceImpl(RequestRepository requestRepository, MapperModel mapperModel,
@@ -71,7 +69,7 @@ public class ListenerServiceImpl implements ListenerService {
 
     @Override
     public void acceptedOffer(AcceptedOffer offer) {
-        UserRequest request = requestService.getForAccepted(offer.getUsername(),offer.getUUID());
+        UserRequest request = requestService.getForAccepted(offer.getAgentUsername(),offer.getUUID());
         request.setRequestStatus(RequestStatus.ACCEPTED);
         request.getRequest().setActive(false);
         offer.setCreatedAt(LocalDateTime.now());

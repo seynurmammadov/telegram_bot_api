@@ -30,7 +30,7 @@ public class QueueListener {
     }
     @RabbitListener(queues = RabbitMQConfig.accepted)
     public void acceptOffer(AcceptedOffer offer) {
-        log.info("New request in 'accepted' queue. For user: {}", offer.getUsername());
+        log.info("New request in 'accepted' queue. For user: {}", offer.getAgentUsername());
         listenerService.acceptedOffer(offer);
     }
 }

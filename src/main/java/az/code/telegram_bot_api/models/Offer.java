@@ -16,7 +16,7 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Table(name = "offers")
-public class Offer {
+public class Offer implements Cloneable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -29,4 +29,8 @@ public class Offer {
     @OneToOne(targetEntity = UserRequest.class)
     @JoinColumn(nullable = false, name = "user_request_id")
     UserRequest userRequest;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

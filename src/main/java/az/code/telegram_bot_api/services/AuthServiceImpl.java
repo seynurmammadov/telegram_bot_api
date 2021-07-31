@@ -37,15 +37,11 @@ public class AuthServiceImpl implements AuthService {
     private String role;
 
 
-    final
     MapperModel mapperModel;
-    final
     UserRepository userRepo;
     final
     TokenUtil tokenUtil;
-    final
     VerificationService verificationService;
-    final
     KeycloakUtil keycloakUtil;
 
     public AuthServiceImpl(MapperModel mapperModel, UserRepository userRepo, TokenUtil tokenUtil, VerificationService verificationService, KeycloakUtil keycloakUtil) {
@@ -86,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-    private void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
+    public void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
                             Response response, String url) {
         if (response.getStatus() == 201) {
             setPasswordAndRole(registrationDTO, realmResource, response);
@@ -95,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private UserRepresentation createKeycloakUser(RegistrationDTO userDTO) {
+    public UserRepresentation createKeycloakUser(RegistrationDTO userDTO) {
         UserRepresentation user = new UserRepresentation();
         user.setEnabled(true);
         user.setUsername(userDTO.getCompany_name().toLowerCase(Locale.ROOT).replace(" ", "_") + "_" + UUID.randomUUID());
@@ -105,7 +101,7 @@ public class AuthServiceImpl implements AuthService {
         return user;
     }
 
-    private void setPasswordAndRole(RegistrationDTO userDTO,
+    public void setPasswordAndRole(RegistrationDTO userDTO,
                                     RealmResource realmResource,
                                     Response response) {
         String userId = CreatedResponseUtil.getCreatedId(response);
@@ -119,7 +115,7 @@ public class AuthServiceImpl implements AuthService {
         userResource.roles().realmLevel().add(Collections.singletonList(realmRoleUser));
     }
 
-    private User createUser(RegistrationDTO userDTO) {
+    public User createUser(RegistrationDTO userDTO) {
         User user = mapperModel.entityToDTO(userDTO, User.class);
         user.setCreated_at(LocalDateTime.now());
         return userRepo.save(userRepo.save(user));

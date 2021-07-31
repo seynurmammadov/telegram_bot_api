@@ -20,7 +20,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
 @EqualsAndHashCode
-public class User {
+public class User implements Cloneable {
     @Id
     @Column(nullable = false, unique = true)
     String username;
@@ -34,11 +34,17 @@ public class User {
     LocalDateTime created_at;
     boolean isActive;
     @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     List<VerificationToken> verificationToken = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     Set<UserRequest> userRequests = new HashSet<>();
-    public void addRequest(UserRequest request){
+
+    public void addRequest(UserRequest request) {
         userRequests.add(request);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
