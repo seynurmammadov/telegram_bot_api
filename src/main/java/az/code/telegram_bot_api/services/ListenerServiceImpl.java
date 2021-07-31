@@ -23,17 +23,11 @@ import java.util.Optional;
 public class ListenerServiceImpl implements ListenerService {
 
     RequestRepository requestRepository;
-
     MapperModel mapperModel;
-
     LanguageRepository languageRepository;
-
     TimeUtil timeUtil;
-
     UserService userService;
-
     RequestService requestService;
-
     AcceptedOfferRepository acceptedRepo;
 
     public ListenerServiceImpl(RequestRepository requestRepository, MapperModel mapperModel,
@@ -61,7 +55,7 @@ public class ListenerServiceImpl implements ListenerService {
     @Override
     public void cancelRequest(String UUID) {
         Optional<Request> request = requestRepository.findByUUID(UUID);
-        if(request.isPresent()){
+        if (request.isPresent()) {
             request.get().setActive(false);
             requestRepository.save(request.get());
         }
@@ -69,7 +63,7 @@ public class ListenerServiceImpl implements ListenerService {
 
     @Override
     public void acceptedOffer(AcceptedOffer offer) {
-        UserRequest request = requestService.getForAccepted(offer.getAgentUsername(),offer.getUUID());
+        UserRequest request = requestService.getForAccepted(offer.getAgentUsername(), offer.getUUID());
         request.setRequestStatus(RequestStatus.ACCEPTED);
         request.getRequest().setActive(false);
         offer.setCreatedAt(LocalDateTime.now());

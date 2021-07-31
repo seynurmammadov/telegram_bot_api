@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
-    final
+
     UserRepository userRepo;
 
     public UserServiceImpl(UserRepository userRepo) {
@@ -31,14 +32,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-       return userRepo.save(user);
+        return userRepo.save(user);
     }
 
     @Override
     public User activeAndSave(User user) {
         user.setActive(true);
-       return save(user);
+        return save(user);
     }
+
     @Override
     public void addRequestToUsers(Request request) {
         List<User> users = userRepo.getAllActive();
@@ -52,4 +54,5 @@ public class UserServiceImpl implements UserService {
         );
         userRepo.saveAll(users);
     }
+
 }

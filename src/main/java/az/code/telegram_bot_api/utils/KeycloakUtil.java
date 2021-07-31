@@ -22,6 +22,7 @@ import java.util.Map;
 
 @Component
 public class KeycloakUtil {
+
     @Value("${app.keycloak.admin.resource}")
     private String adminClientId;
     @Value("${app.keycloak.admin.realm}")
@@ -87,10 +88,12 @@ public class KeycloakUtil {
         userResource.resetPassword(passwordCred);
         return userResource;
     }
+
     public Configuration getConfiguration() {
         Map<String, Object> clientCredentials = new HashMap<>();
         clientCredentials.put("secret", clientSecret);
         clientCredentials.put("grant_type", "password");
         return new Configuration(authServerUrl, realm, clientId, clientCredentials, null);
     }
+
 }

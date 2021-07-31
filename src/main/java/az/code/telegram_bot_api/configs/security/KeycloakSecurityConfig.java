@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @Configuration
 @EnableWebSecurity
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+
     @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
@@ -34,7 +35,7 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
-    //todo has role
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);

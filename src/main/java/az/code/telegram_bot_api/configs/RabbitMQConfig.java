@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 @Getter
 @Configuration
 public class RabbitMQConfig {
+
     public final static String cancelled = "cancelled";
     public final static String offered = "offered";
     public final static String sent = "sent";

@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceImplTest {
+
     @Autowired
     UserService userService;
     @Autowired
@@ -44,12 +45,11 @@ class UserServiceImplTest {
         }
     }
 
-
     @Test
     @DisplayName("User Service - active And Save - Valid")
-    void activeAndSave() {
+    void activeAndSave() throws CloneNotSupportedException {
         User user = userService.save(data.generateUser());
-        User expected = user;
+        User expected = (User) user.clone();
         expected.setActive(true);
         assertEquals(expected, userService.activeAndSave(user));
     }
@@ -62,8 +62,9 @@ class UserServiceImplTest {
         user = userService.save(user);
         User expectedUser = user;
         Request request = requestRepository.save(data.generateRequest());
-        expectedUser.addRequest(data.generateUserRequest(request, user, RequestStatus.NEW_REQUEST,false));
+        expectedUser.addRequest(data.generateUserRequest(request, user, RequestStatus.NEW_REQUEST, false));
         userService.addRequestToUsers(request);
-        assertEquals(expectedUser,userService.findUserByEmail(user.getEmail()));
+        assertEquals(expectedUser, userService.findUserByEmail(user.getEmail()));
     }
+
 }

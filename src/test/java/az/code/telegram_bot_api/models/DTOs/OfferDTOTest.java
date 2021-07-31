@@ -8,7 +8,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.*;
 
 import java.util.Set;
 
@@ -16,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OfferDTOTest {
+
     private Validator validator;
-    String thsimbols =
-            "thsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbols" +
-                    "thsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbols";
+    String symbols = "thsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbols" +
+            "thsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbolsthsimbols";
 
     @BeforeEach
     void setData() {
@@ -45,7 +44,7 @@ class OfferDTOTest {
     public void testOfferDTOError() {
         OfferDTO offerDTO = OfferDTO.builder()
                 .dateInterim("null")
-                .description(thsimbols)
+                .description(symbols)
                 .notes(null)
                 .price(2139213903129012L)
                 .build();
@@ -58,4 +57,5 @@ class OfferDTOTest {
                         "Description should be less than 1000 characters",
                         "Price should be smaller than 9999999999");
     }
+
 }

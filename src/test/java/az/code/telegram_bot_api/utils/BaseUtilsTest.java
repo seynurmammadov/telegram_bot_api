@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BaseUtilsTest {
 
-
     @Test
     @DisplayName("BaseUtils - pagination Result if pages empty - Valid")
     void paginationResult_test1() {
@@ -35,4 +34,5 @@ class BaseUtilsTest {
     void getPageable() {
         assertEquals(PageRequest.of(5, 10, Sort.by("sort")), BaseUtils.getPageable(5, 10, "sort"));
     }
+
 }

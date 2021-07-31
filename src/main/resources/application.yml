@@ -53,3 +53,6 @@ offerTemplate:
   converter:
     url: "https://hcti.io/v1/image"
     token: NTJhNGNlNmEtMzE1NC00ZjRjLTliODAtZDNjMzU2NmRhZTgzOmUxMDE1NjM4LTRjZDAtNDM5ZC04NzBiLTkxYzI4MzY1Mjc0Zg==
+paths:
+  verify: "/api/verify/confirm?token="
+  forgot: "/api/verify/reset-password/"

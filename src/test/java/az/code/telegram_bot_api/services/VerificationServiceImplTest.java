@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class VerificationServiceImplTest {
+
     @Autowired
     VerificationServiceImpl verificationService;
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
@@ -51,8 +52,6 @@ class VerificationServiceImplTest {
         assertFalse(findByToken(expectedToken.getTokenType()));
         verificationService.clearTokens(user, TokenType.EMAIL_VERIFY);
     }
-
-
 
     private boolean findByToken(TokenType tokenType) {
         try {

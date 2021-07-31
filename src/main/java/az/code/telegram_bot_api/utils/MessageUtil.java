@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class MessageUtil {
 
-
-    final
     MailSenderUtil mailSenderUtil;
-
 
     public MessageUtil(MailSenderUtil mailSenderUtil) {
         this.mailSenderUtil = mailSenderUtil;
@@ -32,4 +29,5 @@ public class MessageUtil {
                 .substring(0, request.getRequestURL().length() - request.getRequestURI().length())
                 + request.getContextPath();
     }
+
 }

@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class RequestServiceImplTest {
+
     @Autowired
     RequestServiceImpl requestService;
     @Autowired
@@ -172,4 +173,5 @@ class RequestServiceImplTest {
         userService.save(user);
         return user;
     }
+
 }

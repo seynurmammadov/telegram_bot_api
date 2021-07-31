@@ -15,12 +15,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginDTOTest {
+
     private Validator validator;
+
     @BeforeEach
-     void setData() {
+    void setData() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
+
     @Test
     @DisplayName("Login DTO - validation success- Valid")
     public void testLoginDTOSuccess() {
@@ -30,6 +33,7 @@ class LoginDTOTest {
         Set<ConstraintViolation<LoginDTO>> violations = validator.validate(loginDTO);
         assertTrue(violations.isEmpty());
     }
+
     @Test
     @DisplayName("Login DTO - validation error- Valid")
     public void testLoginDTOError() {
@@ -44,4 +48,5 @@ class LoginDTOTest {
                         "Email must not be null or empty",
                         "Password must not be null or empty");
     }
+
 }

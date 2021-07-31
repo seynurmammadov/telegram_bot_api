@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class OfferServiceImplTest {
+
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
     OfferServiceImpl os;
     UserRequest ur;
@@ -94,4 +95,5 @@ class OfferServiceImplTest {
         os.templatePath = "path";
         os.template = mock(RabbitTemplate.class);
     }
+
 }

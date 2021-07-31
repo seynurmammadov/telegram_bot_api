@@ -18,6 +18,7 @@ import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.authorization.client.Configuration;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -29,12 +30,14 @@ import java.util.UUID;
 @Component
 public class VerificationServiceImpl implements VerificationService {
 
-
     VerificationRepo verificationRepo;
     MessageUtil messageUtil;
-
     KeycloakUtil keycloakUtil;
     UserService userService;
+    @Value("${paths.verify}")
+    String verifyPath;
+    @Value("${paths.forgot}")
+    String forgotPath;
 
     public VerificationServiceImpl(VerificationRepo verificationRepo, MessageUtil messageUtil, KeycloakUtil keycloakUtil, UserService userService) {
         this.verificationRepo = verificationRepo;
@@ -54,10 +57,10 @@ public class VerificationServiceImpl implements VerificationService {
                         .token(UUID.randomUUID().toString())
                         .build())
                 .getToken();
-        url = url + "/api/verify/confirm?token=" + token;
+        url = url + verifyPath + token;
         messageUtil.regVerifyNotification(user.getEmail(), url);
     }
-    //Todo remove hard code
+
     @Override
     public HttpStatus passwordForgot(LoginDTO loginDTO, String url) {
         User user = userService.findUserByEmail(loginDTO.getEmail());
@@ -70,7 +73,7 @@ public class VerificationServiceImpl implements VerificationService {
                         .token(UUID.randomUUID().toString())
                         .build())
                 .getToken();
-        url = url + "/api/verify/reset-password/" + token;
+        url = url + forgotPath + token;
         messageUtil.forgot(user.getEmail(), url);
         return HttpStatus.OK;
     }
@@ -134,4 +137,5 @@ public class VerificationServiceImpl implements VerificationService {
         search.setEmailVerified(true);
         userRS.update(search);
     }
+
 }

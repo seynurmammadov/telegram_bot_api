@@ -16,9 +16,8 @@ import java.net.URL;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(URL.class)
 class ConverterUtilTest {
+
     ConverterUtil converterUtil;
 
     @BeforeEach
@@ -39,10 +38,11 @@ class ConverterUtilTest {
     @Test
     @DisplayName("ConverterUtil -replace method - Valid")
     void replace() {
-        String text ="testing {replace} some text";
-        String textExcepted ="testing replaced some text";
+        String text = "testing {replace} some text";
+        String textExcepted = "testing replaced some text";
         StringBuilder sb = new StringBuilder(text);
-        converterUtil.replace(sb,"replaced","{replace}");
+        converterUtil.replace(sb, "replaced", "{replace}");
         assertEquals(textExcepted, sb.toString());
     }
+
 }

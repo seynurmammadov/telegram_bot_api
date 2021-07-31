@@ -1,5 +1,7 @@
 package az.code.telegram_bot_api;
 
+import lombok.Setter;
+
 import javax.ws.rs.core.*;
 import java.lang.annotation.Annotation;
 import java.net.URI;
@@ -9,15 +11,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class CustomMockResponse extends Response {
+    @Setter
     private int status;
 
     @Override
     public int getStatus() {
         return 201;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     @Override

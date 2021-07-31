@@ -7,25 +7,16 @@ import az.code.telegram_bot_api.models.DTOs.RequestDTO;
 import az.code.telegram_bot_api.models.DTOs.UserData;
 import az.code.telegram_bot_api.models.Language;
 import az.code.telegram_bot_api.models.Offer;
-import az.code.telegram_bot_api.models.Request;
 import az.code.telegram_bot_api.models.User;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 
-import java.time.Clock;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.when;
 
 class MapperModelImplTest {
+
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
     MapperModelImpl mm;
 
@@ -63,4 +54,5 @@ class MapperModelImplTest {
         RequestDTO requestDTO = data.generateRequestDTO();
         assertEquals(data.toRequest(requestDTO), mm.requestDTOtoRequest(requestDTO, language, time));
     }
+
 }

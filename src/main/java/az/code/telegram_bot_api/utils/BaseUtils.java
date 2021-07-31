@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseUtils {
+
     public static <T> List<T> paginationResult(Page<T> pageResult) {
         if (pageResult.hasContent()) {
             return pageResult.getContent();
@@ -19,4 +20,5 @@ public class BaseUtils {
     public static PageRequest getPageable(Integer pageNo, Integer itemsCount, String sortBy) {
         return PageRequest.of(pageNo, itemsCount, Sort.by(sortBy));
     }
+
 }

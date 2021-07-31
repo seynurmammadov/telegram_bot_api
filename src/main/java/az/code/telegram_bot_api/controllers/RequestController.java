@@ -16,13 +16,12 @@ import static az.code.telegram_bot_api.utils.BaseUtils.getPageable;
 @RequestMapping("api/request")
 @Slf4j
 public class RequestController {
-    final
+
     RequestService requestService;
 
     public RequestController(RequestService requestService) {
         this.requestService = requestService;
     }
-
 
     @GetMapping("")
     public ResponseEntity<List<UserRequest>> getAll(@RequestAttribute UserTokenDTO user,
@@ -84,4 +83,5 @@ public class RequestController {
                 userRequestId);
         return new ResponseEntity<>(requestService.deleteArchived(user, userRequestId));
     }
+
 }

@@ -19,11 +19,9 @@ import static az.code.telegram_bot_api.utils.BaseUtils.paginationResult;
 
 @Service
 public class RequestServiceImpl implements RequestService {
-    final
+
     RequestRepository requestRepository;
-    final
     UserService userService;
-    final
     UserRequestRepository userReqRepo;
 
     public RequestServiceImpl(RequestRepository requestRepository, UserService userService, UserRequestRepository userRequestRepository) {
@@ -130,4 +128,5 @@ public class RequestServiceImpl implements RequestService {
     public void save(UserRequest userRequest) {
         userReqRepo.save(userRequest);
     }
+
 }

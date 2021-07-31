@@ -18,11 +18,9 @@ import javax.validation.Valid;
 @RequestMapping("api/verify")
 @Slf4j
 public class VerifyController {
-    final
+
     AuthService authService;
-    final
     VerificationService verificationService;
-    final
     MessageUtil messageUtil;
 
     public VerifyController(AuthService authService, VerificationService verificationService, MessageUtil messageUtil) {
@@ -53,4 +51,5 @@ public class VerifyController {
         log.info("User with username '{}' calls resetWithOldPassword", user.getUsername());
         return new ResponseEntity<>(verificationService.resetWithOldPassword(user, resetPasswordDTO));
     }
+
 }

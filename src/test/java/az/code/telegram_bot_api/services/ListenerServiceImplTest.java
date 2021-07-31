@@ -13,8 +13,6 @@ import az.code.telegram_bot_api.utils.TimeUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,6 +20,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 class ListenerServiceImplTest {
+
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
     ListenerServiceImpl ls;
 
@@ -52,6 +51,7 @@ class ListenerServiceImplTest {
         Request request = data.generateRequest();
         when(ls.requestRepository.findByUUID(anyString())).thenReturn(Optional.ofNullable(request));
         ls.cancelRequest("test");
+        assert request != null;
         Request expected = (Request) request.clone();
         expected.setActive(false);
         verify(ls.requestRepository).save(expected);
@@ -95,6 +95,5 @@ class ListenerServiceImplTest {
         ls.userService = mock(UserServiceImpl.class);
         return ls;
     }
-
 
 }

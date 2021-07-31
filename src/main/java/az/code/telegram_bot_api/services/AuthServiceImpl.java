@@ -35,11 +35,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${app.keycloak.role}")
     private String role;
-
-
     MapperModel mapperModel;
     UserRepository userRepo;
-    final
     TokenUtil tokenUtil;
     VerificationService verificationService;
     KeycloakUtil keycloakUtil;
@@ -83,7 +80,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     public void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
-                            Response response, String url) {
+                           Response response, String url) {
         if (response.getStatus() == 201) {
             setPasswordAndRole(registrationDTO, realmResource, response);
             User user = createUser(registrationDTO);
@@ -102,8 +99,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public void setPasswordAndRole(RegistrationDTO userDTO,
-                                    RealmResource realmResource,
-                                    Response response) {
+                                   RealmResource realmResource,
+                                   Response response) {
         String userId = CreatedResponseUtil.getCreatedId(response);
         log.info("Created userId {}", userId);
         UserResource userResource = keycloakUtil.setPassword(userDTO, userId);
@@ -120,4 +117,5 @@ public class AuthServiceImpl implements AuthService {
         user.setCreated_at(LocalDateTime.now());
         return userRepo.save(userRepo.save(user));
     }
+
 }

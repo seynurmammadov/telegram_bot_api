@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class HttpRequestUtil {
+
     private final String boundary = UUID.randomUUID().toString();
     private static final String LINE = "\r\n";
     private final HttpURLConnection httpConn;
@@ -65,4 +66,5 @@ public class HttpRequestUtil {
         var url = new ObjectMapper().readValue(response, HashMap.class);
         return url.get("url").toString();
     }
+
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
 @RequestMapping("api/request/offer")
 @Slf4j
 public class OfferController {
-    final
+
     OfferService offerService;
 
     public OfferController(OfferService offerService) {

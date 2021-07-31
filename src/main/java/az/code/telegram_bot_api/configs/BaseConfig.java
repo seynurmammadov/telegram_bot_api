@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableTransactionManagement
 public class BaseConfig implements WebMvcConfigurer {
-    final
+
     TokenInterceptor tokenInterceptor;
 
     public BaseConfig(TokenInterceptor tokenInterceptor) {

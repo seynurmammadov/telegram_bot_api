@@ -11,11 +11,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
-import java.util.Objects;
 
 @ControllerAdvice
 @RestController
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(CustomException.class)
     public final ResponseEntity<Object> handleAllExceptions(CustomException ex, WebRequest request) {
         return new ResponseEntity<>(ExceptionResponse

@@ -17,11 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResetPasswordDTOTest {
 
     private Validator validator;
+
     @BeforeEach
     void setData() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
+
     @Test
     @DisplayName("Reset Password DTO - validation success- Valid")
     public void testResetPasswordDTOSuccess() {
@@ -31,6 +33,7 @@ class ResetPasswordDTOTest {
         Set<ConstraintViolation<ResetPasswordDTO>> violations = validator.validate(resetPasswordDTO);
         assertTrue(violations.isEmpty());
     }
+
     @Test
     @DisplayName("Reset Password DTO - validation error- Valid")
     public void testResetPasswordDTOError() {
@@ -45,4 +48,5 @@ class ResetPasswordDTOTest {
                         "Password should be less than 15 characters and bigger than 6 charters",
                         "Password repeat must not be null or empty");
     }
+
 }

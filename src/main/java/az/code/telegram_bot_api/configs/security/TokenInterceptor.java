@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
-    final
+
     TokenUtil tokenUtil;
 
     public TokenInterceptor(TokenUtil tokenUtil) {

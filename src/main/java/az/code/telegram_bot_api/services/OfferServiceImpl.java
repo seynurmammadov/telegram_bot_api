@@ -28,10 +28,8 @@ public class OfferServiceImpl implements OfferService {
     RabbitTemplate template;
     ConverterUtil converterUtil;
     TimeUtil timeUtil;
-
     @Value("${offerTemplate.path}")
     String templatePath;
-
     MapperModel mapperModel;
 
     public OfferServiceImpl(OfferRepository offerRepository, RequestService requestService,
@@ -58,7 +56,6 @@ public class OfferServiceImpl implements OfferService {
         return sendOffer(userRequest);
     }
 
-
     public HttpStatus sendOffer(UserRequest userRequest) throws IOException {
         byte[] offerImage = converterUtil.htmlToImage(templatePath,
                 userRequest.getOffer(),
@@ -73,6 +70,5 @@ public class OfferServiceImpl implements OfferService {
                         .build());
         return HttpStatus.OK;
     }
-
 
 }

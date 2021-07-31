@@ -1,6 +1,5 @@
 package az.code.telegram_bot_api.utils;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,4 +37,5 @@ class MailSenderUtilTest {
         message.setText(content);
         return message;
     }
+
 }

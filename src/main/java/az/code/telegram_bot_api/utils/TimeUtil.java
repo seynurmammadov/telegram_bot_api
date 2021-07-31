@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 @Component
 public class TimeUtil {
+
     @Value("${timer.start}")
     String startTime;
     @Value("${timer.end}")
@@ -23,7 +24,6 @@ public class TimeUtil {
     LocalTime end;
     LocalTime limit;
     DateTimeFormatter dtf;
-
 
     public LocalDateTime getExpireTime() {
         setData();
@@ -63,7 +63,7 @@ public class TimeUtil {
     public LocalTime getTimeReminder(LocalTime now) {
         long diffHour = now.until(end, ChronoUnit.HOURS);
         long diffMinute = now.until(end, ChronoUnit.MINUTES) % 60;
-        return start.plusHours(diffHour).plusMinutes(limit.getHour()*60+limit.getMinute()-diffMinute);
+        return start.plusHours(diffHour).plusMinutes(limit.getHour() * 60 + limit.getMinute() - diffMinute);
     }
 
     public void isWorkTime() {

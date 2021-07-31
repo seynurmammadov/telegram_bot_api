@@ -14,6 +14,7 @@ import java.util.Collections;
 import static org.mockito.Mockito.*;
 
 class RequestScheduleTest {
+
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
 
     @Test

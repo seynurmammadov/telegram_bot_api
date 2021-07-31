@@ -24,6 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
+
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
     public static MockedStatic<Clock> clockMockedStatic;
     public static MockedStatic<UUID> UUIDMockedStatic;
@@ -45,7 +46,6 @@ class AuthServiceImplTest {
     @BeforeEach
     void setData() {
         as = getAuthService();
-
     }
 
     @Test
@@ -95,4 +95,5 @@ class AuthServiceImplTest {
         clockMockedStatic.when(Clock::systemDefaultZone).thenReturn(clock);
         UUIDMockedStatic.when(UUID::randomUUID).thenReturn(new UUID(10, 10));
     }
+
 }

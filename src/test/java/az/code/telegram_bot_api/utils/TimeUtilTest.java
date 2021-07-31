@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class TimeUtilTest {
+
     TimeUtil timeUtil;
     public static MockedStatic<Clock> clockMockedStatic;
 
@@ -29,6 +30,11 @@ public class TimeUtilTest {
         timeUtil.setData();
     }
 
+    @AfterAll
+    public static void close() {
+        clockMockedStatic.close();
+    }
+
     @Test
     @DisplayName("TimeUtilTest - Add time limit - Valid")
     void addLimit() {
@@ -41,7 +47,6 @@ public class TimeUtilTest {
         mockClock("2021-12-22T15:15:30.00Z");
         assertTrue(isWorkTimeBool());
     }
-
 
     @Test
     @DisplayName("TimeUtilTest - is now work time - Valid")
@@ -123,8 +128,4 @@ public class TimeUtilTest {
         clockMockedStatic.when(Clock::systemDefaultZone).thenReturn(clock);
     }
 
-    @AfterAll
-    public static void close() {
-        clockMockedStatic.close();
-    }
 }
