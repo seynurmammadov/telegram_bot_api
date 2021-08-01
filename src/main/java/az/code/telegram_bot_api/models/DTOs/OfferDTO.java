@@ -15,7 +15,7 @@ public class OfferDTO {
     @Max(value = 9999999999L,message = "Price should be smaller than 9999999999")
     @Positive(message = "Price should be positive")
     Long price;
-    @Size(max = 1000, message = "Description should be less than 1000 characters")
+    @Size(max = 800, message = "Description should be less than 800 characters")
     @NotBlank(message = "Description must not be null or empty")
     String description;
     @Size(max = 200, message = "Notes should be less than 200 characters")

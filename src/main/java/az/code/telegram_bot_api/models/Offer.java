@@ -21,7 +21,9 @@ public class Offer implements Cloneable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Long price;
+    @Column(columnDefinition="TEXT")
     String description;
+    @Column(columnDefinition="TEXT")
     String notes;
     String dateInterim;
     @JsonIgnore

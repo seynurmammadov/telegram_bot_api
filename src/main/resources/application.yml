@@ -42,14 +42,14 @@ cron:
   expiredTimeExpression: "0 * 00-23 * * ?"
   offerCleaningExpression: "0 * 00-23 * * ?"
 timer:
-  start: "09:00"
+  start: "03:00"
   end : "17:00"
   responseLimit: "00:45"
 
 offerTemplate:
   path: "offer.html"
-  width: 400
-  height: 600
+  width: 440
+  height: 620
   converter:
     url: "https://hcti.io/v1/image"
     token: NTJhNGNlNmEtMzE1NC00ZjRjLTliODAtZDNjMzU2NmRhZTgzOmUxMDE1NjM4LTRjZDAtNDM5ZC04NzBiLTkxYzI4MzY1Mjc0Zg==
