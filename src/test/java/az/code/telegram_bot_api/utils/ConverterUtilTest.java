@@ -29,7 +29,7 @@ class ConverterUtilTest {
     }
 
     @Test
-    @DisplayName("ConverterUtil - get image by url to byte array - Valid")
+    @DisplayName("ConverterUtil - get image by url to byte array Valid")
     void getImage() throws Exception {
         String test = "test";
         InputStream fakeStream = new ReaderInputStream(new StringReader(test));
@@ -40,7 +40,7 @@ class ConverterUtilTest {
     }
 
     @Test
-    @DisplayName("ConverterUtil -replace method - Valid")
+    @DisplayName("ConverterUtil -replace method Valid")
     void replace() {
         String text = "testing {replace} some text";
         String textExcepted = "testing replaced some text";
@@ -51,7 +51,7 @@ class ConverterUtilTest {
     }
 
     @Test
-    @DisplayName("ConverterUtil -html To Email method - Valid")
+    @DisplayName("ConverterUtil -html To Email method Valid")
     void htmlToEmail() throws IOException {
         String text = "testing {url} some text";
         String textExcepted = "testing token some text";

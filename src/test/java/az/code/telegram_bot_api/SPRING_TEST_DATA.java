@@ -13,6 +13,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class SPRING_TEST_DATA {
+    public static final String AUTH_URL = "/api/auth";
+    public static final String OFFER_URL = "/api/request/offer";
+    public static final String REQUEST_URL = "/api/request";
+    public static final String VERIFY_URL = "/api/verify";
     public static final String userToken ="Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2NkpVTlVMRU5NUEE2d2ZuN205cWx3blNmcVBHd3RfMFgzV1FsZnJzWnNzIn0.eyJleHAiOjE2Mjc0NjAxNTMsImlhdCI6MTYyNzQyNDE1MywianRpIjoiYmFlODRkNDQtNzRmNi00MDc1LWI2ODEtMjEyZGYzZGU4NTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL3RvdXJfYm90IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNmOGE0YWIzLTg0MTctNDU5Yi1hOTIxLTMzMjlmNmU2NjA2YiIsInR5cCI6IkJlYXJlciIsImF6cCI6InRvdXJfYm90X21pY3Jvc2VydmljZSIsInNlc3Npb25fc3RhdGUiOiJhNzU5YmI3Zi1lNjQ1LTRkNmQtODViYy02NmUzNzI0NTMxY2UiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy10b3VyX2JvdCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJhcHAtdXNlciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7InRvdXJfYm90X21pY3Jvc2VydmljZSI6eyJyb2xlcyI6WyJ1c2VyIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNleW51ciBNYW1tYWRvdiIsInByZWZlcnJlZF91c2VybmFtZSI6InNleW51cl9tbWNfMjVmZWZhNzAtYTQ2OS00YzBjLTg4ZjUtMmRlZDE2MjJmZjllIiwiZ2l2ZW5fbmFtZSI6IlNleW51ciIsImZhbWlseV9uYW1lIjoiTWFtbWFkb3YiLCJlbWFpbCI6InNleW51cnNtQGNvZGUuZWR1LmF6In0.RVtJzRHYUcXmqh1KO8iOjk1-AlTfwElPJDRY_GT0hqwjBAxvy2fe8N3WWa0qUtBWry4e_PJ5Eu4-8XnAZpTGPfwMIbOtq51v1jXQO0Bjw2euMN-pPK7G-dVumrhGrscABv8PILfpMVjEhDdTFVnCOtXl00P4WBMbb1gdQIr-eJkwJwPQCMdZdm2_eZb8A0iaYVoJ95XK-llCOfB9CTofr5dtW_2pCZYi91TlmjdpsdZt44jEozzthjQL03dnR9Ten3wfjP9W3ZZKBF11qzedWCgnGgmJKsd-dKGDO96w_ZTItTzfbwDrgF3ayJLXrDdZZcRvt1dFzxtwiDg5RHSG1A";
     public VerificationToken generatePasswordToken() {
         return VerificationToken.builder()
@@ -231,6 +235,24 @@ public class SPRING_TEST_DATA {
         requestDTO.setBudget(Integer.parseInt(ans.get("budget")));
         return requestDTO;
     }
+    public UserTokenDTO generateUserTokenDTO(){
+        return UserTokenDTO.builder()
+                .agent_name("name")
+                .email("email")
+                .username("username")
+                .agent_surname("surname")
+                .verified(true)
+                .build();
+    }
 
+    public UserRequest generateUserRequest() {
+          return UserRequest.builder()
+                .id(1L)
+                .user(null)
+                .request(null)
+                .requestStatus(RequestStatus.NEW_REQUEST)
+                .isArchived(false)
+                .build();
+    }
 }
 

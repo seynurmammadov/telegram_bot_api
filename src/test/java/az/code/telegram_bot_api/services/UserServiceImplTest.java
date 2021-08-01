@@ -23,14 +23,14 @@ class UserServiceImplTest {
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
 
     @Test
-    @DisplayName("User Service - find user by email - Valid")
+    @DisplayName("User Service - find user by email Valid")
     void findUserByEmail_test1() {
         User user = userService.save(data.generateUser());
         assertEquals(user, userService.findUserByEmail(user.getEmail()));
     }
 
     @Test
-    @DisplayName("User Service - find user by email  - Valid")
+    @DisplayName("User Service - find user by email Valid")
     void findUserByEmail_test2() {
         userService.save(data.generateUser());
         assertFalse(findUserByEmail());
@@ -46,7 +46,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("User Service - active And Save - Valid")
+    @DisplayName("User Service - active And Save Valid")
     void activeAndSave() throws CloneNotSupportedException {
         User user = userService.save(data.generateUser());
         User expected = (User) user.clone();
@@ -55,7 +55,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("User Service - add Request To Users - Valid")
+    @DisplayName("User Service - add Request To Users Valid")
     void addRequestToUsers() {
         User user = data.generateUser();
         user.setActive(true);

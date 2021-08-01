@@ -30,7 +30,7 @@ class ListenerServiceImplTest {
     }
 
     @Test
-    @DisplayName("Listener Service - save Request - Valid")
+    @DisplayName("Listener Service - save Request Valid")
     void saveRequest() throws CloneNotSupportedException {
         RequestDTO requestDTO = data.generateRequestDTO();
         UserData userData = data.generateUserData();
@@ -46,7 +46,7 @@ class ListenerServiceImplTest {
     }
 
     @Test
-    @DisplayName("Listener Service - cancel Request - Valid")
+    @DisplayName("Listener Service - cancel Request Valid")
     void cancelRequest() throws CloneNotSupportedException {
         Request request = data.generateRequest();
         when(ls.requestRepository.findByUUID(anyString())).thenReturn(Optional.ofNullable(request));
@@ -58,7 +58,7 @@ class ListenerServiceImplTest {
     }
 
     @Test
-    @DisplayName("Listener Service - accepted Offer - Valid")
+    @DisplayName("Listener Service - accepted Offer Valid")
     void acceptedOffer() throws CloneNotSupportedException {
         User user = data.generateUser();
         AcceptedOffer offer = data.generateAcceptedOffer(user);

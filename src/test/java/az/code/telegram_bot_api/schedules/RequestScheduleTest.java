@@ -18,7 +18,7 @@ class RequestScheduleTest {
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
 
     @Test
-    @DisplayName("Request Schedule - expired Requests - Valid")
+    @DisplayName("Request Schedule - archive expired requests Valid")
     void expiredRequests() throws CloneNotSupportedException {
         RequestSchedule rs = new RequestSchedule(mock(RequestRepository.class), mock(RabbitTemplate.class));
         Request request = data.generateRequest();

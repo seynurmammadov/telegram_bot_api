@@ -36,27 +36,27 @@ public class TimeUtilTest {
     }
 
     @Test
-    @DisplayName("TimeUtilTest - Add time limit - Valid")
+    @DisplayName("TimeUtilTest - Add time limit Valid")
     void addLimit() {
         assertEquals(LocalTime.parse("20:45:00"), timeUtil.addLimit(LocalTime.parse("20:00:00")));
     }
 
     @Test
-    @DisplayName("TimeUtilTest - is now work time - Valid")
+    @DisplayName("TimeUtilTest - is now work time Valid")
     void isWorkTime() {
         mockClock("2021-12-22T15:15:30.00Z");
         assertTrue(isWorkTimeBool());
     }
 
     @Test
-    @DisplayName("TimeUtilTest - is now work time - Valid")
+    @DisplayName("TimeUtilTest - is now work time Valid")
     void isWorkTimeOut() {
         mockClock("2021-12-22T05:15:30.00Z");
         assertFalse(isWorkTimeBool());
     }
 
     @Test
-    @DisplayName("TimeUtilTest - get time reminder - Valid")
+    @DisplayName("TimeUtilTest - get time reminder Valid")
     void getTimeReminder() {
         LocalTime localTime = LocalTime.parse("16:41", timeUtil.dtf);
         LocalTime expected = LocalTime.parse("09:26", timeUtil.dtf);
@@ -64,21 +64,21 @@ public class TimeUtilTest {
     }
 
     @Test
-    @DisplayName("TimeUtilTest - is Within Range false- Valid")
+    @DisplayName("TimeUtilTest - is Within Range false Valid")
     void isWithinRange() {
         LocalTime localTime = LocalTime.parse("16:01", timeUtil.dtf);
         assertFalse(timeUtil.isWithinRange(localTime));
     }
 
     @Test
-    @DisplayName("TimeUtilTest - is Within Range true- Valid")
+    @DisplayName("TimeUtilTest - is Within Range true Valid")
     void isWithinRangeTrue() {
         LocalTime localTime = LocalTime.parse("06:01", timeUtil.dtf);
         assertTrue(timeUtil.isWithinRange(localTime));
     }
 
     @Test
-    @DisplayName("TimeUtilTest - convert LocalDate and LocalTime to LocalDateTime- Valid")
+    @DisplayName("TimeUtilTest - convert LocalDate and LocalTime to LocalDateTime Valid")
     void convertToLocalDateTime() {
         LocalTime localTime = LocalTime.parse("06:01", timeUtil.dtf);
         LocalDate localDate = LocalDate.parse("2021-12-12");
@@ -86,28 +86,28 @@ public class TimeUtilTest {
     }
 
     @Test
-    @DisplayName("TimeUtilTest - get Expire Time If Time Before Work Time- Valid")
+    @DisplayName("TimeUtilTest - get Expire Time If Time Before Work Time Valid")
     void getExpireTimeIfTimeBeforeWorkTime() {
         mockClock("2021-12-22T05:15:30.00Z");
         assertEquals(LocalDateTime.parse("2021-12-22T09:45:00.00"), timeUtil.getExpireTime());
     }
 
     @Test
-    @DisplayName("TimeUtilTest - get Expire Time If Time After Work Time - Valid")
+    @DisplayName("TimeUtilTest - get Expire Time If Time After Work Time Valid")
     void getExpireTimeIfTimeAfterWorkTime() {
         mockClock("2021-12-22T18:15:30.00Z");
         assertEquals(LocalDateTime.parse("2021-12-23T09:45:00.00"), timeUtil.getExpireTime());
     }
 
     @Test
-    @DisplayName("TimeUtilTest - get Expire Time If Time before Work - Valid")
+    @DisplayName("TimeUtilTest - get Expire Time If Time before Work Valid")
     void getIfTimeBeforeWorkTimeButExpire() {
         mockClock("2021-12-22T16:45:00.00Z");
         assertEquals(LocalDateTime.parse("2021-12-23T09:30:00.00"), timeUtil.getExpireTime());
     }
 
     @Test
-    @DisplayName("TimeUtilTest - get Expire Time If Time IN Work Time- Valid")
+    @DisplayName("TimeUtilTest - get Expire Time If Time IN Work Time Valid")
     void getIfTimeBeforeInWorkTime() {
         mockClock("2021-12-22T16:00:00.00Z");
         assertEquals(LocalDateTime.parse("2021-12-22T16:45:00.00"), timeUtil.getExpireTime());

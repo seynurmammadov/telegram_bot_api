@@ -33,21 +33,21 @@ class MapperModelImplTest {
     }
 
     @Test
-    @DisplayName("Mapper model- default map - Valid")
+    @DisplayName("Mapper model - default map test 1 Valid")
     void defaultMap_test1() {
         OfferDTO offerDTO = data.generateOfferDTO();
         assertEquals(data.generateOffer(), mm.defaultMap(offerDTO, Offer.class));
     }
 
     @Test
-    @DisplayName("Mapper model- default map - Valid")
+    @DisplayName("Mapper model - default map test 2 Valid")
     void defaultMap_test2() {
         UserData userData = data.generateUserData();
         assertEquals(data.toRequestDTO(userData.getAnswers()), mm.defaultMap(userData.getAnswers(), RequestDTO.class));
     }
 
     @Test
-    @DisplayName("Mapper model- requestDTO to Request - Valid")
+    @DisplayName("Mapper model - requestDTO to Request Valid")
     void requestDTOtoRequest() {
         LocalDateTime time = LocalDateTime.now();
         Language language = data.generateLanguage();

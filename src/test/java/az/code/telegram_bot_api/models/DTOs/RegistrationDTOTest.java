@@ -25,7 +25,7 @@ class RegistrationDTOTest {
     }
 
     @Test
-    @DisplayName("Registration DTO - validation success- Valid")
+    @DisplayName("Registration DTO - validation Valid")
     public void testRegistrationDTOSuccess() {
         RegistrationDTO registrationDTO = RegistrationDTO.builder()
                 .tin(23131L)
@@ -41,7 +41,7 @@ class RegistrationDTOTest {
     }
 
     @Test
-    @DisplayName("Registration DTO - validation error- Valid")
+    @DisplayName("Registration DTO - validation Invalid")
     public void testRegistrationDTOError() {
         RegistrationDTO registrationDTO = RegistrationDTO.builder()
                 .tin(-23131L)

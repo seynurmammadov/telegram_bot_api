@@ -3,6 +3,7 @@ package az.code.telegram_bot_api.services;
 import az.code.telegram_bot_api.exceptions.InvalidUserDataException;
 import az.code.telegram_bot_api.exceptions.VerifyEmailException;
 import az.code.telegram_bot_api.models.DTOs.LoginDTO;
+import az.code.telegram_bot_api.models.DTOs.TokenDTO;
 import az.code.telegram_bot_api.models.DTOs.RegistrationDTO;
 import az.code.telegram_bot_api.models.User;
 import az.code.telegram_bot_api.models.mapper.MapperModel;
@@ -64,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AccessTokenResponse login(LoginDTO loginDTO) throws JsonProcessingException {
+    public TokenDTO login(LoginDTO loginDTO) throws JsonProcessingException{
         Configuration configuration = keycloakUtil.getConfiguration();
         AuthzClient authzClient = AuthzClient.create(configuration);
         AccessTokenResponse response;
@@ -77,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         if (!user.get("email_verified").asBoolean()) {
             throw new VerifyEmailException();
         }
-        return response;
+        return TokenDTO.builder().token(response.getToken()).build();
     }
 
 

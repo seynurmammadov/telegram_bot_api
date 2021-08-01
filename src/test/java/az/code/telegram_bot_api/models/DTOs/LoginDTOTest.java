@@ -25,7 +25,7 @@ class LoginDTOTest {
     }
 
     @Test
-    @DisplayName("Login DTO - validation success- Valid")
+    @DisplayName("Login DTO - validation Valid ")
     public void testLoginDTOSuccess() {
         LoginDTO loginDTO = LoginDTO.builder()
                 .email("seynur@fam.com")
@@ -35,7 +35,7 @@ class LoginDTOTest {
     }
 
     @Test
-    @DisplayName("Login DTO - validation error- Valid")
+    @DisplayName("Login DTO - validation Invalid")
     public void testLoginDTOError() {
         LoginDTO loginDTO = LoginDTO.builder()
                 .email(" ")

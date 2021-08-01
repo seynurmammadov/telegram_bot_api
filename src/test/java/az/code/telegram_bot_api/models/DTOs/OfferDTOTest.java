@@ -27,7 +27,7 @@ class OfferDTOTest {
     }
 
     @Test
-    @DisplayName("Offer DTO - validation success- Valid")
+    @DisplayName("Offer DTO - validation Valid")
     public void testOfferDTOSuccess() {
         OfferDTO offerDTO = OfferDTO.builder()
                 .dateInterim("20.12.2012-20.12.2012")
@@ -40,7 +40,7 @@ class OfferDTOTest {
     }
 
     @Test
-    @DisplayName("Offer DTO - validation error- Valid")
+    @DisplayName("Offer DTO - validation Invalid")
     public void testOfferDTOError() {
         OfferDTO offerDTO = OfferDTO.builder()
                 .dateInterim("null")

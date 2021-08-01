@@ -25,7 +25,7 @@ class ResetPasswordDTOTest {
     }
 
     @Test
-    @DisplayName("Reset Password DTO - validation success- Valid")
+    @DisplayName("Reset Password DTO - validation Valid")
     public void testResetPasswordDTOSuccess() {
         ResetPasswordDTO resetPasswordDTO = ResetPasswordDTO.builder()
                 .password_repeat("seynur247")
@@ -35,7 +35,7 @@ class ResetPasswordDTOTest {
     }
 
     @Test
-    @DisplayName("Reset Password DTO - validation error- Valid")
+    @DisplayName("Reset Password DTO - validation Invalid")
     public void testResetPasswordDTOError() {
         ResetPasswordDTO resetPasswordDTO = ResetPasswordDTO.builder()
                 .password_repeat(null)

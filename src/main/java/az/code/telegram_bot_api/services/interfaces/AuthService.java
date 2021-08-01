@@ -1,9 +1,9 @@
 package az.code.telegram_bot_api.services.interfaces;
 
 import az.code.telegram_bot_api.models.DTOs.LoginDTO;
+import az.code.telegram_bot_api.models.DTOs.TokenDTO;
 import az.code.telegram_bot_api.models.DTOs.RegistrationDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.keycloak.representations.AccessTokenResponse;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -11,5 +11,5 @@ import java.io.IOException;
 public interface AuthService {
     RegistrationDTO registration(RegistrationDTO registrationDTO, String url) throws MessagingException, IOException;
 
-    AccessTokenResponse login(LoginDTO loginDTO) throws JsonProcessingException;
+    TokenDTO login(LoginDTO loginDTO) throws JsonProcessingException;
 }

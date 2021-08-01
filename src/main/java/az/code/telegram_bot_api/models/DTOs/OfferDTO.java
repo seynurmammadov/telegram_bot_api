@@ -10,6 +10,8 @@ import javax.validation.constraints.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OfferDTO {
     @Max(value = 9999999999L,message = "Price should be smaller than 9999999999")

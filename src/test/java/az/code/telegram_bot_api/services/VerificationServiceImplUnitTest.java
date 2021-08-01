@@ -38,7 +38,7 @@ class VerificationServiceImplUnitTest {
     }
 
     @Test
-    @DisplayName("Verification Service - reset With Token - Valid")
+    @DisplayName("Verification Service - reset With Token Valid")
     public void resetWithToken() {
         when(vs.verificationRepo.findByToken(any(), any())).thenReturn(java.util.Optional.of(token));
         ResetPasswordDTO dto = data.generateResetPasswordDTO();
@@ -48,7 +48,7 @@ class VerificationServiceImplUnitTest {
     }
 
     @Test
-    @DisplayName("Verification Service - send Verify Token - Valid")
+    @DisplayName("Verification Service - send Verify Token Valid")
     public void sendVerifyToken() throws MessagingException, IOException {
         when(vs.userService.findUserByEmail(user.getEmail())).thenReturn(user);
         when(vs.verificationRepo.save(any())).thenReturn(token);
@@ -58,7 +58,7 @@ class VerificationServiceImplUnitTest {
     }
 
     @Test
-    @DisplayName("Verification Service - password Forgot - Valid")
+    @DisplayName("Verification Service - password Forgot Valid")
     public void passwordForgot() throws MessagingException, IOException {
         when(vs.userService.findUserByEmail(user.getEmail())).thenReturn(user);
         when(vs.verificationRepo.save(any())).thenReturn(token);

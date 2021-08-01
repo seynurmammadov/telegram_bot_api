@@ -51,7 +51,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    @DisplayName("Auth Service - create  User - Valid")
+    @DisplayName("Auth Service - create new User Valid")
     void createUser() throws CloneNotSupportedException, MessagingException, IOException {
         Response response = new CustomMockResponse();
         User user = data.generateUser();
@@ -63,7 +63,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    @DisplayName("Auth Service - create Keycloak User - Valid")
+    @DisplayName("Auth Service - create Keycloak User Valid")
     void createKeycloakUser() {
         RegistrationDTO registrationDTO = data.generateRegistrationDTO();
         UserRepresentation expected = data.generateUserRepresentation(registrationDTO);
@@ -71,7 +71,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    @DisplayName("Auth Service - Create User - Valid")
+    @DisplayName("Auth Service - Create User Valid")
     void testCreateUser() throws CloneNotSupportedException {
         RegistrationDTO registrationDTO = data.generateRegistrationDTO();
         User user = data.toUser(registrationDTO);

@@ -22,21 +22,21 @@ class VerificationServiceImplTest {
     SPRING_TEST_DATA data = new SPRING_TEST_DATA();
 
     @Test
-    @DisplayName("Verification Service - clear tokens - Valid")
+    @DisplayName("Verification Service - clear tokens Valid")
     void clearTokens_test1() {
         List<VerificationToken> tokens = getVerificationTokens(data.generateEmailToken(), TokenType.EMAIL_VERIFY);
         assertEquals(0, tokens.size());
     }
 
     @Test
-    @DisplayName("Verification Service - clear tokens - Valid")
+    @DisplayName("Verification Service - clear tokens Valid")
     void clearTokens_test2() {
         List<VerificationToken> tokens = getVerificationTokens(data.generatePasswordToken(), TokenType.PASSWORD_RESET);
         assertEquals(1, tokens.size());
     }
 
     @Test
-    @DisplayName("Verification Service - findByToken tokens - Valid")
+    @DisplayName("Verification Service - findByToken tokens Valid")
     void findByToken_test1() {
         User user = getUserTokens(data.generateEmailToken());
         VerificationToken expectedToken = user.getVerificationToken().get(0);
@@ -45,7 +45,7 @@ class VerificationServiceImplTest {
     }
 
     @Test
-    @DisplayName("Verification Service - findByToken tokens - Valid")
+    @DisplayName("Verification Service - findByToken tokens Valid")
     void findByToken_test2() {
         User user = getUserTokens(data.generateEmailToken());
         VerificationToken expectedToken = user.getVerificationToken().get(0);

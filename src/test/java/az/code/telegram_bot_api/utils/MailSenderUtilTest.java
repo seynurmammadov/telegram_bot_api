@@ -25,7 +25,7 @@ class MailSenderUtilTest {
     }
 
     @Test
-    @DisplayName("MailSenderUtil - send email - Valid")
+    @DisplayName("MailSenderUtil - send email Valid")
     void sendEmail() throws MessagingException {
         String to = "to";
         String subject = "subject";

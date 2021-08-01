@@ -13,6 +13,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
+@EqualsAndHashCode
+@ToString
 public class LoginDTO {
     @Email(message = "Email is not valid")
     @NotBlank(message = "Email must not be null or empty")

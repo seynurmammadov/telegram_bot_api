@@ -8,6 +8,8 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class UserTokenDTO {
     String agent_name;

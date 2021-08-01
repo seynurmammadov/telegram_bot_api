@@ -29,7 +29,7 @@ class RequestServiceImplTest {
 
 
     @Test
-    @DisplayName("Request Service - get all requests - Valid")
+    @DisplayName("Request Service - get all requests Valid")
     void getAll() {
         User user = getUser(false);
         assertEquals(new ArrayList<>(user.getUserRequests()),
@@ -38,7 +38,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - get all request filtered - Valid")
+    @DisplayName("Request Service - get all request filtered Valid")
     void getAllFiltered() {
         User user = getUser(false);
         assertEquals(new ArrayList<>(user.getUserRequests()),
@@ -51,7 +51,7 @@ class RequestServiceImplTest {
 
 
     @Test
-    @DisplayName("Request Service - get all archived requests - Valid")
+    @DisplayName("Request Service - get all archived requests Valid")
     void getAllArchived() {
         User user = getUser();
         UserRequest ur = getUserRequest(user, true);
@@ -64,7 +64,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - archive request - Valid")
+    @DisplayName("Request Service - archive request Valid")
     void archiveRequest() {
         User user = getUser();
         UserRequest ur = getUserRequest(user, false);
@@ -79,7 +79,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - unarchive request - Valid")
+    @DisplayName("Request Service - unarchive request Valid")
     void unarchiveRequest() {
         User user = getUser();
         UserRequest ur = getUserRequest(user, true);
@@ -94,7 +94,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - delete request - Valid")
+    @DisplayName("Request Service - delete request Valid")
     void deleteArchived() {
         User user = getUser();
         UserRequest ur = getUserRequest(user, true);
@@ -108,7 +108,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - get request for offer - Valid")
+    @DisplayName("Request Service - get request for offer Valid")
     void getForOffer() {
         User user = getUser();
         UserRequest ur = getUserRequest(user, false);
@@ -121,7 +121,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - get request for offer - Valid")
+    @DisplayName("Request Service - get request for offer Valid")
     void getForOffer_test2() {
         User user = getUser();
         getUserRequest(user, false);
@@ -141,7 +141,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Request Service - get request for accepted offer - Valid")
+    @DisplayName("Request Service - get request for accepted offer Valid")
     void getForAccepted() {
         User user = getUser();
         UserRequest ur = getUserRequest(user, false);

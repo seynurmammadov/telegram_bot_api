@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageUtilTest {
 
     @Test
-    @DisplayName("TimeUtilTest - get url - Valid")
+    @DisplayName("TimeUtilTest - get url Valid")
     void getUrl() {
         MessageUtil messageUtil = new MessageUtil(null,null);
         MockHttpServletRequest request = new MockHttpServletRequest();

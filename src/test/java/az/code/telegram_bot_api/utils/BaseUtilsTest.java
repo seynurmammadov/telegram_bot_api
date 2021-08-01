@@ -16,21 +16,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseUtilsTest {
 
     @Test
-    @DisplayName("BaseUtils - pagination Result if pages empty - Valid")
+    @DisplayName("BaseUtils - pagination Result if pages empty Valid")
     void paginationResult_test1() {
         Page<String> page = new PageImpl<>(Collections.emptyList());
         assertEquals(new ArrayList<String>(), BaseUtils.paginationResult(page));
     }
 
     @Test
-    @DisplayName("BaseUtils - pagination Result if pages have content - Valid")
+    @DisplayName("BaseUtils - pagination Result if pages have content Valid")
     void paginationResult_test2() {
         Page<String> page = new PageImpl<>(Collections.singletonList("test"));
         assertEquals(Collections.singletonList("test"), BaseUtils.paginationResult(page));
     }
 
     @Test
-    @DisplayName("BaseUtils - get Pageable - Valid")
+    @DisplayName("BaseUtils - get Pageable Valid")
     void getPageable() {
         assertEquals(PageRequest.of(5, 10, Sort.by("sort")), BaseUtils.getPageable(5, 10, "sort"));
     }

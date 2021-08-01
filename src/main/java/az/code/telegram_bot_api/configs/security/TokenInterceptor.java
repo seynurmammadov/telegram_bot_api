@@ -3,6 +3,7 @@ package az.code.telegram_bot_api.configs.security;
 import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.utils.TokenUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
+@Profile("!test")
 public class TokenInterceptor implements HandlerInterceptor {
 
     TokenUtil tokenUtil;

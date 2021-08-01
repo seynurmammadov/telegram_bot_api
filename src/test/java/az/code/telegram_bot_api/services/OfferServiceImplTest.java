@@ -35,7 +35,7 @@ class OfferServiceImplTest {
     }
 
     @Test
-    @DisplayName("Offer Service - send Offer - Valid")
+    @DisplayName("Offer Service - send Offer Valid")
     void sendOffer() throws IOException, CloneNotSupportedException {
         Offer offer = data.generateOffer();
         mockOfferService(os);
@@ -58,7 +58,7 @@ class OfferServiceImplTest {
 
 
     @Test
-    @DisplayName("Offer Service - send Offer rabbit mq - Valid")
+    @DisplayName("Offer Service - send Offer rabbit mq Valid")
     void sendOfferRabbitMQ() throws IOException {
         mockOfferServiceForRabbit(os);
 
