@@ -14,6 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
 
+import javax.mail.MessagingException;
+
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -45,7 +49,7 @@ class VerificationServiceImplUnitTest {
 
     @Test
     @DisplayName("Verification Service - send Verify Token - Valid")
-    public void sendVerifyToken() {
+    public void sendVerifyToken() throws MessagingException, IOException {
         when(vs.userService.findUserByEmail(user.getEmail())).thenReturn(user);
         when(vs.verificationRepo.save(any())).thenReturn(token);
         when(vs.verificationRepo.findByToken(any(), any())).thenReturn(java.util.Optional.of(token));
@@ -55,7 +59,7 @@ class VerificationServiceImplUnitTest {
 
     @Test
     @DisplayName("Verification Service - password Forgot - Valid")
-    public void passwordForgot() {
+    public void passwordForgot() throws MessagingException, IOException {
         when(vs.userService.findUserByEmail(user.getEmail())).thenReturn(user);
         when(vs.verificationRepo.save(any())).thenReturn(token);
         when(vs.verificationRepo.findByToken(any(), any())).thenReturn(java.util.Optional.of(token));

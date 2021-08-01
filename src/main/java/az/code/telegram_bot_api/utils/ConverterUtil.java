@@ -17,6 +17,7 @@ public class ConverterUtil {
     String notes = "{notes}";
     String company = "{company_name}";
     String date = "{date}";
+    String url = "{url}";
 
     @Value("${offerTemplate.width}")
     String templateWidth;
@@ -29,11 +30,16 @@ public class ConverterUtil {
 
     public byte[] htmlToImage(String templatePath, Offer offer, String companyName) throws IOException {
         StringBuilder sb = readHtml(templatePath);
-        editHtml(offer, companyName, sb);
+        editHtmlForImage(offer, companyName, sb);
         return getImage(new URL(getImageUrl(sb.toString())));
     }
+    public String htmlToEmail(String templatePath,String token) throws IOException {
+        StringBuilder sb = readHtml(templatePath);
+        replace(sb, token, url);
+        return sb.toString();
+    }
 
-    private StringBuilder readHtml(String templatePath) throws IOException {
+    public StringBuilder readHtml(String templatePath) throws IOException {
         String line;
         StringBuilder sb = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(templatePath)))) {
@@ -44,13 +50,14 @@ public class ConverterUtil {
         return sb;
     }
 
-    private void editHtml(Offer offer, String companyName, StringBuilder sb) {
+    private void editHtmlForImage(Offer offer, String companyName, StringBuilder sb) {
         replace(sb, offer.getDateInterim(), date);
         replace(sb, companyName, company);
         replace(sb, offer.getDescription(), desc);
         replace(sb, offer.getPrice().toString(), price);
         replace(sb, offer.getNotes(), notes);
     }
+
 
     public void replace(StringBuilder sb, String val, String replaceItem) {
         sb.replace(sb.indexOf(replaceItem), sb.indexOf(replaceItem) + replaceItem.length(), val);

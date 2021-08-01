@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("api/verify")
@@ -35,7 +37,7 @@ public class VerifyController {
     }
 
     @PostMapping(path = "/forgot-password")
-    public ResponseEntity<Void> forgot(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+    public ResponseEntity<Void> forgot(@RequestBody LoginDTO loginDTO, HttpServletRequest request) throws MessagingException, IOException {
         return new ResponseEntity<>(verificationService.passwordForgot(loginDTO, messageUtil.getUrl(request)));
     }
 

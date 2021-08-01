@@ -12,7 +12,7 @@ class MessageUtilTest {
     @Test
     @DisplayName("TimeUtilTest - get url - Valid")
     void getUrl() {
-        MessageUtil messageUtil = new MessageUtil(null);
+        MessageUtil messageUtil = new MessageUtil(null,null);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServerPort(5000);
         assertEquals("http://localhost:5000", messageUtil.getUrl(request));

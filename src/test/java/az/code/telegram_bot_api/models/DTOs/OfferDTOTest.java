@@ -52,10 +52,10 @@ class OfferDTOTest {
         assertThat(violations)
                 .hasSize(4)
                 .map(ConstraintViolation::getMessage)
-                .contains("Invalid date interim!(Date should be like: 'xx.xx.xxxx-xx.xx.xxxx')",
+                .contains("Price should be smaller than 9999999999",
+                        "Description should be less than 800 characters",
                         "Notes must not be null or empty",
-                        "Description should be less than 1000 characters",
-                        "Price should be smaller than 9999999999");
+                        "Invalid date interim!(Date should be like: 'xx.xx.xxxx-xx.xx.xxxx')");
     }
 
 }

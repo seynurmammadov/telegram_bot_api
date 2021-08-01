@@ -12,8 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("api/auth")
@@ -33,7 +35,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<RegistrationDTO> register(@Valid @RequestBody RegistrationDTO registrationDTO,
-                                                    HttpServletRequest request) {
+                                                    HttpServletRequest request) throws MessagingException, IOException {
         log.info("User {} is registering", registrationDTO.getAgent_name());
         return new ResponseEntity<>(authService.registration(
                 registrationDTO,

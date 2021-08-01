@@ -25,7 +25,9 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -50,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RegistrationDTO registration(RegistrationDTO registrationDTO, String url) {
+    public RegistrationDTO registration(RegistrationDTO registrationDTO, String url) throws MessagingException, IOException {
         RealmResource realmResource = keycloakUtil.getKeycloakRealm();
         UserRepresentation userRP = createKeycloakUser(registrationDTO);
         Response response = realmResource.users().create(userRP);
@@ -80,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     public void createUser(RegistrationDTO registrationDTO, RealmResource realmResource,
-                           Response response, String url) {
+                           Response response, String url) throws MessagingException, IOException {
         if (response.getStatus() == 201) {
             setPasswordAndRole(registrationDTO, realmResource, response);
             User user = createUser(registrationDTO);

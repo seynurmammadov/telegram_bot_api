@@ -7,12 +7,15 @@ import az.code.telegram_bot_api.models.DTOs.UserTokenDTO;
 import az.code.telegram_bot_api.models.enums.TokenType;
 import org.springframework.http.HttpStatus;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
+
 public interface VerificationService {
-    void sendVerifyToken(User user, String url);
+    void sendVerifyToken(User user, String url) throws MessagingException, IOException;
 
     VerificationToken findByToken(String token, TokenType tokenType);
 
-    HttpStatus passwordForgot(LoginDTO loginDTO, String url);
+    HttpStatus passwordForgot(LoginDTO loginDTO, String url) throws MessagingException, IOException;
 
     HttpStatus verify(String token);
 

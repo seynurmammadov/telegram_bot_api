@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +49,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public void sendVerifyToken(User user, String url) {
+    public void sendVerifyToken(User user, String url) throws MessagingException, IOException {
         clearTokens(user, TokenType.EMAIL_VERIFY);
         String token = verificationRepo
                 .save(VerificationToken.builder()
@@ -62,7 +64,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public HttpStatus passwordForgot(LoginDTO loginDTO, String url) {
+    public HttpStatus passwordForgot(LoginDTO loginDTO, String url) throws MessagingException, IOException {
         User user = userService.findUserByEmail(loginDTO.getEmail());
         clearTokens(user, TokenType.PASSWORD_RESET);
         String token = verificationRepo

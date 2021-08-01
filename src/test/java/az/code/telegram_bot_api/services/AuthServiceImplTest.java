@@ -13,7 +13,9 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 
+import javax.mail.MessagingException;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -50,7 +52,7 @@ class AuthServiceImplTest {
 
     @Test
     @DisplayName("Auth Service - create  User - Valid")
-    void createUser() throws CloneNotSupportedException {
+    void createUser() throws CloneNotSupportedException, MessagingException, IOException {
         Response response = new CustomMockResponse();
         User user = data.generateUser();
         doNothing().when(as).setPasswordAndRole(any(), any(), any());

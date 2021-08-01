@@ -57,3 +57,11 @@ offerTemplate:
 paths:
   verify: "/api/verify/confirm?token="
   forgot: "/api/verify/reset-password/"
+mail:
+  subject:
+    verify: "Email verification"
+    forgot: "Reset password"
+  html:
+    template:
+      verify:  "verify.html"
+      forgot:  "forgot.html"
