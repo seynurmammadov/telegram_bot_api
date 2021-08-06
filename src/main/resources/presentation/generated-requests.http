@@ -1,0 +1,12 @@
+###
+//@no-log
+POST http://localhost:5000/api/request/offer/{{id1}}
+Authorization: Bearer {{agent_token}}
+Content-Type: application/json
+
+{
+  "price": 120,
+  "description": "India’s powerful empires left their marks on the monuments of some of the country’s most visited destinations. Towers, forts, mausoleums and palaces provide glimpses into the rich history of India and the skills and artistry of its craftsmen. Although India’s large cities bustle with activity, oasis of calm canbe found in their gardens, temples, lakes and beaches powerful empires left their marks on the monuments of some of the country’s most visited destinations.India’s powerful empires left their marks on the monuments of some of the country’s most visited destinations. Towers, forts, mausoleums and palaces provide glimpses into the rich history of India and the skills and artistry of its craftsmen. Although India’s large cities bustle with activity.",
+  "notes": "Accommodations: Delhi 2 nights, Agra 1 night, Jaipur 2 nights, Jodhpur 2 nights, Udaipur 2 powerful empires left their marks on the monuments of some of the country’s most visited destinations.",
+  "dateInterim": "21.12.2001-21.12.2003"
+}

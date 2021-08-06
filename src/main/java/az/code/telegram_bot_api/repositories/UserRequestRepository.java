@@ -44,8 +44,8 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Long> 
 
     @Query("select ur from UserRequest ur " +
             "where ur.user.username=:username and " +
-            "ur.id=:id and ur.isDeleted=false and ur.request.isActive=true and ur.requestStatus<>:except")
-    Optional<UserRequest> getForOffer(String username, Long id, RequestStatus except);
+            "ur.request.UUID=:requestId and ur.isDeleted=false and ur.request.isActive=true and ur.requestStatus<>:except")
+    Optional<UserRequest> getForOffer(String username, String requestId, RequestStatus except);
 
     @Query("select ur from UserRequest ur " +
             "where ur.user.username=:username and " +

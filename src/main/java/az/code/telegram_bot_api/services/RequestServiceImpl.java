@@ -105,11 +105,11 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public UserRequest getForOffer(String username, Long userRequestId) {
+    public UserRequest getForOffer(String username, String requestId) {
         return getRequest(
                 userReqRepo.getForOffer(
                         username,
-                        userRequestId,
+                        requestId,
                         RequestStatus.OFFER_MADE
                 )
         );

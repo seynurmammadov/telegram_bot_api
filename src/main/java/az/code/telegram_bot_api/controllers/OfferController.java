@@ -21,14 +21,14 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @PostMapping("/{userRequestId}")
+    @PostMapping("/{requestId}")
     public ResponseEntity<Void> sendOffer(@RequestAttribute UserTokenDTO user,
-                                          @PathVariable Long userRequestId,
+                                          @PathVariable String requestId,
                                           @Valid @RequestBody OfferDTO offer) throws IOException {
         log.info("User with username '{}' calls send offer method request id {}",
                 user.getUsername(),
-                userRequestId);
-        return new ResponseEntity<>(offerService.sendOffer(user, userRequestId, offer));
+                requestId);
+        return new ResponseEntity<>(offerService.sendOffer(user, requestId, offer));
     }
 
 }

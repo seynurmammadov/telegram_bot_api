@@ -1,5 +1,6 @@
 package az.code.telegram_bot_api.services;
 
+import az.code.telegram_bot_api.exceptions.CustomExceptionImpl;
 import az.code.telegram_bot_api.exceptions.InvalidUserDataException;
 import az.code.telegram_bot_api.exceptions.VerifyEmailException;
 import az.code.telegram_bot_api.models.DTOs.LoginDTO;
@@ -24,6 +25,7 @@ import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -53,15 +55,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RegistrationDTO registration(RegistrationDTO registrationDTO, String url) throws MessagingException, IOException {
+    public HttpStatus registration(RegistrationDTO registrationDTO, String url) throws MessagingException, IOException {
         RealmResource realmResource = keycloakUtil.getKeycloakRealm();
         UserRepresentation userRP = createKeycloakUser(registrationDTO);
         Response response = realmResource.users().create(userRP);
-        registrationDTO.setStatusCode(response.getStatus());
-        registrationDTO.setStatus(response.getStatusInfo().toString());
         registrationDTO.setUsername(userRP.getUsername());
         createUser(registrationDTO, realmResource, response, url);
-        return registrationDTO;
+        return HttpStatus.OK;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         if (!user.get("email_verified").asBoolean()) {
             throw new VerifyEmailException();
         }
-        return TokenDTO.builder().token(response.getToken()).build();
+        return TokenDTO.builder().access_token(response.getToken()).build();
     }
 
 
@@ -88,6 +88,8 @@ public class AuthServiceImpl implements AuthService {
             setPasswordAndRole(registrationDTO, realmResource, response);
             User user = createUser(registrationDTO);
             verificationService.sendVerifyToken(user, url);
+        }else {
+            throw new CustomExceptionImpl(response.getStatusInfo().toString(),response.getStatus());
         }
     }
 

@@ -40,7 +40,7 @@ class OfferServiceImplTest {
         Offer offer = data.generateOffer();
         mockOfferService(os);
 
-        when(os.requestService.getForOffer(anyString(), anyLong())).thenReturn(ur);
+        when(os.requestService.getForOffer(anyString(), anyString())).thenReturn(ur);
         when(os.mapperModel.defaultMap(any(), any())).thenReturn(offer);
 
         Offer expectedOffer = (Offer) offer.clone();
@@ -48,9 +48,7 @@ class OfferServiceImplTest {
         expectedOffer.setUserRequest(expectedUR);
         expectedUR.setOffer(offer);
         expectedUR.setRequestStatus(RequestStatus.OFFER_MADE);
-
-        assertEquals(HttpStatus.OK, os.sendOffer(data.generateUserDTO(data.generateUser()), 1L, null));
-
+        assertEquals(HttpStatus.OK, os.sendOffer(data.generateUserDTO(data.generateUser()), ur.getRequest().getUUID(), null));
         verify(os.offerRepository).save(expectedOffer);
         verify(os.requestService).save(expectedUR);
         verify(os).sendOffer(expectedUR);

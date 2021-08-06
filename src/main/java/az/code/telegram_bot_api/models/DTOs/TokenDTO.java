@@ -8,5 +8,5 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class TokenDTO {
-    String token;
+    String access_token;
 }

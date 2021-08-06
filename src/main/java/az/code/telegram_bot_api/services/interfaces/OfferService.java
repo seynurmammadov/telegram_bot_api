@@ -8,5 +8,5 @@ import org.springframework.http.HttpStatus;
 import java.io.IOException;
 
 public interface OfferService {
-    HttpStatus sendOffer(UserTokenDTO userTokenDTO, Long userRequestId, OfferDTO offer) throws IOException;
+    HttpStatus sendOffer(UserTokenDTO userTokenDTO, String  userRequestId, OfferDTO offer) throws IOException;
 }

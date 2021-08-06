@@ -19,6 +19,7 @@ public class AgencyOffer implements Cloneable {
     @Transient
     byte[] file;
     String filePath;
+    boolean isAccepted;
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

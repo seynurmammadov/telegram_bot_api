@@ -34,12 +34,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegistrationDTO> register(@Valid @RequestBody RegistrationDTO registrationDTO,
+    public ResponseEntity<HttpStatus> register(@Valid @RequestBody RegistrationDTO registrationDTO,
                                                     HttpServletRequest request) throws MessagingException, IOException {
         log.info("User {} is registering", registrationDTO.getAgent_name());
         return new ResponseEntity<>(
-                authService.registration(registrationDTO, messageUtil.getUrl(request)),
-                HttpStatus.OK
+                authService.registration(registrationDTO, messageUtil.getUrl(request))
         );
     }
 

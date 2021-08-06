@@ -1,8 +1,6 @@
 package az.code.telegram_bot_api.configs;
 
 import az.code.telegram_bot_api.configs.security.TokenInterceptor;
-import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -26,4 +24,4 @@ public class BaseConfig implements WebMvcConfigurer {
         registry.addInterceptor(tokenInterceptor);
     }
 
- }
+}

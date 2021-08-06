@@ -28,19 +28,11 @@ public class Request implements Cloneable {
     @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
     Long orderId;
+    @Column(columnDefinition = "TEXT")
+    private String answers;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "lang_id")
-    Language language;
     String UUID;
-    LocalDate travelStartDate;
-    LocalDate travelEndDate;
-    TourType tourType;
-    String addressToUser;
-    String addressFrom;
-    AddressType addressToType;
-    String travellerCount;
-    int budget;
+
     @EqualsAndHashCode.Exclude
     LocalDateTime createdAt;
     @EqualsAndHashCode.Exclude

@@ -2,13 +2,10 @@ package az.code.telegram_bot_api;
 
 import az.code.telegram_bot_api.models.*;
 import az.code.telegram_bot_api.models.DTOs.*;
-import az.code.telegram_bot_api.models.enums.AddressType;
 import az.code.telegram_bot_api.models.enums.RequestStatus;
 import az.code.telegram_bot_api.models.enums.TokenType;
-import az.code.telegram_bot_api.models.enums.TourType;
 import org.keycloak.representations.idm.UserRepresentation;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -77,15 +74,7 @@ public class SPRING_TEST_DATA {
         return Request.builder()
                 .experationDate(LocalDateTime.now())
                 .createdAt(LocalDateTime.now())
-                .budget(200)
-                .travellerCount("2301")
-                .addressToType(AddressType.YOURSELF)
-                .addressToUser("address")
-                .addressFrom("baku")
-                .tourType(TourType.EXCURSION)
                 .UUID(UUID.randomUUID().toString())
-                .travelEndDate(LocalDate.now())
-                .travelStartDate(LocalDate.now())
                 .isActive(true)
                 .userRequests(Collections.emptyList())
                 .build();
@@ -121,20 +110,6 @@ public class SPRING_TEST_DATA {
 
     }
 
-    public RequestDTO generateRequestDTO() {
-        return RequestDTO.builder()
-                .language("AZ")
-                .UUID(UUID.randomUUID().toString())
-                .travelStartDate("2021-12-22")
-                .travelEndDate("2021-12-22")
-                .tourType(TourType.EXCURSION.getVal())
-                .addressToUser("addressToUser")
-                .addressFrom("addressFrom")
-                .addressToType(AddressType.YOURSELF.getVal())
-                .travellerCount("about 5")
-                .budget(100)
-                .build();
-    }
 
     public UserData generateUserData() {
         Map<String, String> ans = new HashMap<>();
@@ -154,31 +129,7 @@ public class SPRING_TEST_DATA {
                 .build();
     }
 
-    public Language generateLanguage() {
-        return Language.builder()
-                .id(1L)
-                .keyword("AZ")
-                .langName("azerbaijan")
-                .build();
-    }
 
-    public Request toRequest(RequestDTO request) {
-        return Request.builder()
-                .language(generateLanguage())
-                .isActive(true)
-                .travelStartDate(LocalDate.parse(request.getTravelStartDate()))
-                .travelEndDate(LocalDate.parse(request.getTravelEndDate()))
-                .UUID(request.getUUID())
-                .tourType(TourType.valueOfTour(request.getTourType()))
-                .addressFrom(request.getAddressFrom())
-                .addressToUser(request.getAddressToUser())
-                .addressToType(AddressType.valueOfAddress(request.getAddressToType()))
-                .travellerCount(request.getTravellerCount())
-                .budget(request.getBudget())
-                .createdAt(LocalDateTime.now())
-                .experationDate(LocalDateTime.now())
-                .build();
-    }
 
 
     public RegistrationDTO generateRegistrationDTO() {
@@ -222,19 +173,7 @@ public class SPRING_TEST_DATA {
                 .dateInterim("20.12.2021-21.12.2012").build();
     }
 
-    public RequestDTO toRequestDTO(Map<String, String> ans) {
-        RequestDTO requestDTO = new RequestDTO();
-        requestDTO.setTravelEndDate(ans.get("travelEndDate"));
-        requestDTO.setTravelStartDate(ans.get("travelStartDate"));
-        requestDTO.setTourType(ans.get("tourType"));
-        requestDTO.setAddressToType(ans.get("addressToType"));
-        requestDTO.setAddressToUser(ans.get("addressToUser"));
-        requestDTO.setLanguage(ans.get("language"));
-        requestDTO.setTravellerCount(ans.get("travellerCount"));
-        requestDTO.setAddressFrom(ans.get("addressFrom"));
-        requestDTO.setBudget(Integer.parseInt(ans.get("budget")));
-        return requestDTO;
-    }
+
     public UserTokenDTO generateUserTokenDTO(){
         return UserTokenDTO.builder()
                 .agent_name("name")

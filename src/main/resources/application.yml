@@ -41,8 +41,8 @@ cron:
   expiredTimeExpression: "0 * 00-23 * * ?"
   offerCleaningExpression: "0 * 00-23 * * ?"
 timer:
-  start: "03:00"
-  end : "17:00"
+  start: "00:00"
+  end : "23:50"
   responseLimit: "00:45"
 
 offerTemplate:
@@ -51,7 +51,7 @@ offerTemplate:
   height: 620
   converter:
     url: "https://hcti.io/v1/image"
-    token: NTJhNGNlNmEtMzE1NC00ZjRjLTliODAtZDNjMzU2NmRhZTgzOmUxMDE1NjM4LTRjZDAtNDM5ZC04NzBiLTkxYzI4MzY1Mjc0Zg==
+    token: NGQ4MjJkYWQtODJhYy00ZGU5LWFmYWYtZmFiZDNlNmRjZjBiOmE4NWUwNjgxLWMwNmEtNGMwOS04NGFjLTNkOTM5YjBjZWRjZQ==
 paths:
   verify: "/api/verify/confirm?token="
   forgot: "/api/verify/reset-password/"

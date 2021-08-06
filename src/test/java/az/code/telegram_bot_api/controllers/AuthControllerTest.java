@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -61,7 +62,7 @@ class AuthControllerTest {
     @DisplayName("AuthController - login - HttpStatus.200")
     void login_test1() throws Exception {
         LoginDTO loginDTO = data.generateLoginDTO("email");
-        TokenDTO response = TokenDTO.builder().token(SPRING_TEST_DATA.userToken).build();
+        TokenDTO response = TokenDTO.builder().access_token(SPRING_TEST_DATA.userToken).build();
         String content = mapper.writer().writeValueAsString(loginDTO);
 
         when(authService.login(any())).thenReturn(response);
@@ -115,11 +116,10 @@ class AuthControllerTest {
         RegistrationDTO registrationDTO = data.generateRegistrationDTO();
 
         String content = mapper.writer().writeValueAsString(registrationDTO);
-        when(authService.registration(any(), any())).thenReturn(registrationDTO);
+        when(authService.registration(any(), any())).thenReturn(HttpStatus.OK);
         mockMvc.perform(post(AUTH_URL + "/register")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(content))
-                .andExpect(content().string(mapper.writeValueAsString(registrationDTO)))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

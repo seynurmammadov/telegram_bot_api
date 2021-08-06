@@ -2,14 +2,14 @@ package az.code.telegram_bot_api.services;
 
 import az.code.telegram_bot_api.SPRING_TEST_DATA;
 import az.code.telegram_bot_api.models.*;
-import az.code.telegram_bot_api.models.DTOs.RequestDTO;
 import az.code.telegram_bot_api.models.DTOs.UserData;
 import az.code.telegram_bot_api.models.enums.RequestStatus;
 import az.code.telegram_bot_api.models.mapper.MapperModel;
 import az.code.telegram_bot_api.repositories.AcceptedOfferRepository;
-import az.code.telegram_bot_api.repositories.LanguageRepository;
 import az.code.telegram_bot_api.repositories.RequestRepository;
 import az.code.telegram_bot_api.utils.TimeUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,15 +31,16 @@ class ListenerServiceImplTest {
 
     @Test
     @DisplayName("Listener Service - save Request Valid")
-    void saveRequest() throws CloneNotSupportedException {
-        RequestDTO requestDTO = data.generateRequestDTO();
+    void saveRequest() throws CloneNotSupportedException, JsonProcessingException {
         UserData userData = data.generateUserData();
-
-        when(ls.mapperModel.defaultMap(any(), any())).thenReturn(requestDTO);
-        requestDTO.setUUID(userData.getUUID());
-        Request request = data.toRequest(requestDTO);
-        when(ls.mapperModel.requestDTOtoRequest(any(), any(), any())).thenReturn(request);
-
+        ObjectMapper mapper = new ObjectMapper();
+        Request request = Request.builder()
+                .isActive(true)
+                .UUID(userData.getUUID())
+                .answers(mapper.writeValueAsString(userData.getAnswers()))
+                .createdAt(LocalDateTime.now())
+                .experationDate(LocalDateTime.now())
+                .build();
         ls.saveRequest(userData);
         Request expected = (Request) request.clone();
         verify(ls.requestRepository).save(expected);
@@ -91,7 +92,6 @@ class ListenerServiceImplTest {
         ls.requestRepository = mock(RequestRepository.class);
         ls.mapperModel = mock(MapperModel.class, CALLS_REAL_METHODS);
         ls.timeUtil = mock(TimeUtil.class);
-        ls.languageRepository = mock(LanguageRepository.class);
         ls.userService = mock(UserServiceImpl.class);
         return ls;
     }

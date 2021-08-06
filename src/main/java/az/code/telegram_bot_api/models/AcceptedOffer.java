@@ -29,6 +29,7 @@ public class AcceptedOffer implements Serializable,Cloneable {
     String firstName;
     String lastName;
     Long userId;
+    Boolean isTelegramNumber;
     @EqualsAndHashCode.Exclude
     LocalDateTime createdAt;
     @JsonIgnore

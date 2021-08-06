@@ -20,7 +20,7 @@ public interface RequestService {
 
     HttpStatus deleteArchived(UserTokenDTO userTokenDTO, Long userRequestId);
 
-    UserRequest getForOffer(String username, Long userRequestId);
+    UserRequest getForOffer(String username, String  requestId);
 
     UserRequest getForAccepted(String username, String UUID);
 

@@ -44,9 +44,9 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public HttpStatus sendOffer(UserTokenDTO userTokenDTO, Long userRequestId, OfferDTO offerDTO) throws IOException {
+    public HttpStatus sendOffer(UserTokenDTO userTokenDTO, String requestId, OfferDTO offerDTO) throws IOException {
         timeUtil.isWorkTime();
-        UserRequest userRequest = requestService.getForOffer(userTokenDTO.getUsername(), userRequestId);
+        UserRequest userRequest = requestService.getForOffer(userTokenDTO.getUsername(), requestId);
         Offer offer = mapperModel.defaultMap(offerDTO, Offer.class);
         offer.setUserRequest(userRequest);
         userRequest.setOffer(offer);
@@ -67,6 +67,7 @@ public class OfferServiceImpl implements OfferService {
                         .UUID(userRequest.getRequest().getUUID())
                         .file(offerImage)
                         .username(userRequest.getUser().getUsername())
+                        .isAccepted(false)
                         .build());
         return HttpStatus.OK;
     }

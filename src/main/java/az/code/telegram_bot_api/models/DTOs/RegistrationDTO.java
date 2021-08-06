@@ -38,7 +38,5 @@ public class RegistrationDTO {
     @Size(max = 15, min = 6, message = "Password repeat should be less than 15 characters and bigger than 6 charters")
     @NotBlank(message = "Password repeat must not be null or empty")
     String password_repeat;
-    int statusCode;
-    String status;
 }
 

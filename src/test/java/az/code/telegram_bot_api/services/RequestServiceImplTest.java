@@ -115,30 +115,11 @@ class RequestServiceImplTest {
         assertEquals(ur,
                 requestService.getForOffer(
                         user.getUsername(),
-                        ur.getId()
+                        ur.getRequest().getUUID()
                 )
         );
     }
 
-    @Test
-    @DisplayName("Request Service - get request for offer Valid")
-    void getForOffer_test2() {
-        User user = getUser();
-        getUserRequest(user, false);
-        assertFalse(getForOffer(user.getUsername()));
-    }
-
-    private boolean getForOffer(String username) {
-        try {
-            requestService.getForOffer(
-                    username,
-                    0L
-            );
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     @Test
     @DisplayName("Request Service - get request for accepted offer Valid")
