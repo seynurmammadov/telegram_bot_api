@@ -27,22 +27,20 @@ public class TimeUtil {
 
     public LocalDateTime getExpireTime() {
         setData();
-        LocalTime now = LocalTime.parse(LocalTime.now().format(dtf));
-        LocalTime expireTime = addLimit(now);
-        LocalDateTime time = LocalDateTime.now();
-        if (isWithinRange(now) || isWithinRange(expireTime)) {
-            if (now.isBefore(start)) {
-                time = convertToLocalDateTime(LocalDate.now(), addLimit(start));
-            } else if (now.isAfter(end) || now == end) {
-                time = convertToLocalDateTime(LocalDate.now().plusDays(1), addLimit(start));
-            } else if (expireTime.isAfter(end)) {
-                time = convertToLocalDateTime(LocalDate.now().plusDays(1), getTimeReminder(now));
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expireTime = addLimit(now);
+        if (isWithinRange(now.toLocalTime()) || isWithinRange(expireTime.toLocalTime())) {
+            if (now.toLocalTime().isBefore(start)) {
+                now = convertToLocalDateTime(LocalDate.now(), addLimit(start));
+            } else if (now.toLocalTime().isAfter(end) || now.toLocalTime() == end) {
+                now = convertToLocalDateTime(LocalDate.now().plusDays(1), addLimit(start));
+            } else if (expireTime.toLocalTime().isAfter(end)) {
+                now = convertToLocalDateTime(LocalDate.now().plusDays(1), getTimeReminder(now.toLocalTime()));
             }
         } else {
-            time = convertToLocalDateTime(LocalDate.now(), expireTime);
+            now = expireTime;
         }
-
-        return time;
+        return now;
     }
 
     public void setData() {
@@ -71,6 +69,10 @@ public class TimeUtil {
         if (isWithinRange(LocalTime.now())) {
             throw new NotWorkTimeException();
         }
+    }
+
+    public LocalDateTime addLimit(LocalDateTime time) {
+        return time.plusHours(limit.getHour()).plusMinutes(limit.getMinute());
     }
 
     public LocalTime addLimit(LocalTime time) {

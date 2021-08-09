@@ -61,7 +61,7 @@ class AuthControllerTest {
     @Test
     @DisplayName("AuthController - login - HttpStatus.200")
     void login_test1() throws Exception {
-        LoginDTO loginDTO = data.generateLoginDTO("email");
+        LoginDTO loginDTO = data.generateLoginDTO("email@gmail.com");
         TokenDTO response = TokenDTO.builder().access_token(SPRING_TEST_DATA.userToken).build();
         String content = mapper.writer().writeValueAsString(loginDTO);
 
@@ -78,7 +78,7 @@ class AuthControllerTest {
     @Test
     @DisplayName("AuthController - login - HttpStatus.401 InvalidUserDataException() ")
     void login_test2() throws Exception {
-        LoginDTO loginDTO = data.generateLoginDTO("email");
+        LoginDTO loginDTO = data.generateLoginDTO("email@gmail.com");
         String content = mapper.writer().writeValueAsString(loginDTO);
 
         when(authService.login(any())).thenThrow(new InvalidUserDataException());
@@ -96,7 +96,7 @@ class AuthControllerTest {
     @Test
     @DisplayName("AuthController - login - HttpStatus.401 VerifyEmailException() ")
     void login_test3() throws Exception {
-        LoginDTO loginDTO = data.generateLoginDTO("email");
+        LoginDTO loginDTO = data.generateLoginDTO("email@gmail.com");
         String content = mapper.writer().writeValueAsString(loginDTO);
 
         when(authService.login(any())).thenThrow(new VerifyEmailException());

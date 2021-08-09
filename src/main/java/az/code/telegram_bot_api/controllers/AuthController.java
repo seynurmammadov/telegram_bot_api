@@ -43,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) throws JsonProcessingException {
+    public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginDTO loginDTO) throws JsonProcessingException {
         log.info("User with email {} is joining", loginDTO.getEmail());
         return ResponseEntity.ok(authService.login(loginDTO));
     }

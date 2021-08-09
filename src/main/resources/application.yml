@@ -51,7 +51,7 @@ offerTemplate:
   height: 620
   converter:
     url: "https://hcti.io/v1/image"
-    token: NGQ4MjJkYWQtODJhYy00ZGU5LWFmYWYtZmFiZDNlNmRjZjBiOmE4NWUwNjgxLWMwNmEtNGMwOS04NGFjLTNkOTM5YjBjZWRjZQ==
+    token: MGFmZDQxZmUtOWVlMS00Y2YyLWI3ZGEtYmFkNmE1YWZjOTEyOjA0YmJjOTRjLTllMDYtNDVhYS04MjIwLTk2YmIxNGQ5MWQ2Nw==
 paths:
   verify: "/api/verify/confirm?token="
   forgot: "/api/verify/reset-password/"
